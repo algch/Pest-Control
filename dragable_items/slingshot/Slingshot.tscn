@@ -15,7 +15,9 @@ font_data = ExtResource( 5 )
 [sub_resource type="CircleShape2D" id=3]
 radius = 36.0
 
-[node name="Slingshot" type="StaticBody2D"]
+[node name="Slingshot" type="StaticBody2D" groups=[
+"slingshots",
+]]
 input_pickable = true
 script = ExtResource( 4 )
 

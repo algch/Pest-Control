@@ -5,6 +5,11 @@ var is_selected := false setget set_is_selected
 # listeing for input state may be better, use states instead
 var reference_pos := Vector2()
 
+signal selected(selected_id)
+
+func _ready():
+	connect("selected", get_parent(), "on_Slingshot_selected")
+
 func init(pos):
 	position = pos
 
@@ -33,3 +38,5 @@ func _unhandled_input(event):
 
 func _on_SelectorButton_released():
 	self.is_selected = not is_selected
+	if is_selected:
+		emit_signal("selected", get_instance_id())
