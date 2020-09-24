@@ -1,6 +1,9 @@
 extends Node
 
 
+# IMPORTANT This may not be the best way to handle the items, maybe this should be it´s 
+# own scene
+
 func spawn_item(item):
 	add_child(item)
 

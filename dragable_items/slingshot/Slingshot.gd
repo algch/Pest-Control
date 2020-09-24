@@ -18,18 +18,20 @@ func set_is_selected(val):
 	print("setter called")
 	$Control/Label.visible = is_selected
 
+# should be handled from slingshots.gd
 func _unhandled_input(event):
 	if not is_selected:
 		return
 
 	if event.is_action_pressed("touch"):
-		reference_pos = get_global_mouse_position()
-
-	if event.is_action_released("touch"):
-		var raw_direction = reference_pos - get_global_mouse_position()
-		# not a real solution, prevent _unhandled_input from called when pressing SelectorButton
-		if raw_direction.length() <= 100:
+		var mouse_pos = get_global_mouse_position()
+		if mouse_pos.distance_to(self.position) <= $SelectorButton.shape.radius:
+			self.reference_pos = Vector2()
 			return
+		self.reference_pos = mouse_pos
+
+	if event.is_action_released("touch") and self.reference_pos != Vector2():
+		var raw_direction = reference_pos - get_global_mouse_position()
 		var noramlized_direction = raw_direction.normalized()
 		reference_pos = Vector2()
 		var projectile = projectile_class.instance()
