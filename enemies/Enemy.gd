@@ -12,9 +12,11 @@ var direction = Vector2.DOWN
 var speed = 50.0
 var knockback_speed = 600.0
 var knockback_time = 0.1
-var stagger_time = 1.0
+var stagger_time = 0.3
 var kb_timer = Timer.new()
 var kb_dir = Vector2()
+var max_health = 3.0
+var health = self.max_health
 var current_state = STATE.ADVANCE setget set_current_state
 
 func set_current_state(new_state):
@@ -72,4 +74,6 @@ func do_knockback():
 func handle_projectile_collision(projectile, collision):
 	self.kb_dir = projectile.direction.bounce(collision.normal)
 	self.current_state = STATE.KNOCKBACK
+	self.health -= 1
+	$TextureProgress.value = (self.health / self.max_health) * $TextureProgress.max_value
 	projectile.queue_free()
