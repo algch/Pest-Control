@@ -16,8 +16,15 @@ var stagger_time = 0.3
 var kb_timer = Timer.new()
 var kb_dir = Vector2()
 var max_health = 3.0
-var health = self.max_health
+var health = self.max_health setget set_health
 var current_state = STATE.ADVANCE setget set_current_state
+
+func set_health(new_health):
+	if new_health <= 0:
+		queue_free()
+
+	health = new_health
+
 
 func set_current_state(new_state):
 	if current_state == new_state:
