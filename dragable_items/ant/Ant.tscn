@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=2]
+[gd_scene load_steps=20 format=2]
 
 [ext_resource path="res://enemies/spider/animations/walk/Spider_Walking0007.png" type="Texture" id=1]
 [ext_resource path="res://enemies/spider/animations/walk/Spider_Walking0005.png" type="Texture" id=2]
@@ -16,6 +16,7 @@
 [ext_resource path="res://enemies/spider/animations/walk/Spider_Walking0013.png" type="Texture" id=14]
 [ext_resource path="res://enemies/spider/animations/walk/Spider_Walking0003.png" type="Texture" id=15]
 [ext_resource path="res://enemies/spider/animations/walk/Spider_Walking0014.png" type="Texture" id=16]
+[ext_resource path="res://dragable_items/ant/Ant.gd" type="Script" id=17]
 
 [sub_resource type="SpriteFrames" id=1]
 animations = [ {
@@ -29,12 +30,15 @@ animations = [ {
 radius = 56.0
 
 [node name="Ant" type="KinematicBody2D"]
+collision_layer = 3
+collision_mask = 3
+script = ExtResource( 17 )
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 rotation = -1.5708
 frames = SubResource( 1 )
 animation = "walk"
-frame = 8
+frame = 5
 playing = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]

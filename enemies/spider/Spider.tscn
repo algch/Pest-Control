@@ -40,7 +40,7 @@ script = ExtResource( 6 )
 rotation = -1.5708
 frames = SubResource( 1 )
 animation = "walk"
-frame = 10
+frame = 13
 playing = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -57,3 +57,13 @@ texture_progress = ExtResource( 19 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="ObjectiveChecker" type="RayCast2D" parent="."]
+enabled = true
+cast_to = Vector2( 200, 0 )
+collision_mask = 2
+
+[node name="ObjectiveCheckTimer" type="Timer" parent="."]
+wait_time = 0.5
+autostart = true
+[connection signal="timeout" from="ObjectiveCheckTimer" to="." method="_on_ObjectiveCheckTimer_timeout"]
