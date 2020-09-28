@@ -1,6 +1,11 @@
 extends StaticBody2D
 
 
+var team = "PLAYER"
+var charges = 3
+var poison_time = 1
+var poison_damage = 0.5
+
 func init(pos):
 	self.position = pos
 

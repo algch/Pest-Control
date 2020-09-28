@@ -74,7 +74,7 @@ script = ExtResource( 17 )
 rotation = -1.5708
 frames = SubResource( 1 )
 animation = "walk"
-frame = 9
+frame = 8
 playing = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -92,10 +92,11 @@ autostart = true
 [node name="AttackTimer" type="Timer" parent="."]
 
 [node name="TextureProgress" type="TextureProgress" parent="."]
-margin_left = -56.0
-margin_top = -40.0
-margin_right = 16.0
-rect_rotation = 90.0
+margin_left = -64.0
+margin_top = 40.0
+margin_right = 8.0
+margin_bottom = 80.0
+rect_rotation = -90.0
 value = 100.0
 texture_under = ExtResource( 47 )
 texture_progress = ExtResource( 48 )

@@ -116,9 +116,6 @@ func handle_projectile_collision(projectile, collision):
 	self.health -= 1
 	projectile.queue_free()
 
-func handle_poisoned(poisoner):
-	print(self.name, " has been poisoned by ", poisoner.name)
-
 func handle_melee_attack(attacker):
 	if attacker.team == self.team:
 		return

@@ -74,7 +74,7 @@ script = ExtResource( 6 )
 rotation = -1.5708
 frames = SubResource( 1 )
 animation = "walk"
-frame = 4
+frame = 5
 playing = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
