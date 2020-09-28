@@ -1,88 +1,13 @@
-extends KinematicBody2D
+extends "res://entities/WalkingCharacter.gd"
 
-enum STATE {
-	ADVANCE,
-	ATTACK,
-	KNOCKBACK,
-	STAGGER,
-}
 
 func init(pos):
 	self.position = pos
 
-var direction = Vector2.UP
-var speed = 50.0
-var knockback_speed = 600.0
-var knockback_time = 0.1
-var stagger_time = 0.3
-var kb_timer = Timer.new()
-var kb_dir = Vector2()
-var max_health = 3.0
-var health = self.max_health setget set_health
-var current_state = STATE.ADVANCE setget set_current_state
-
-func set_health(new_health):
-	if new_health <= 0:
-		queue_free()
-
-	health = new_health
-
-
-func set_current_state(new_state):
-	if current_state == new_state:
-		return
-
-	match new_state:
-		STATE.ADVANCE:
-			$AnimatedSprite.play()
-		STATE.KNOCKBACK: 
-			self.kb_timer.set_wait_time(knockback_time)
-			self.kb_timer.start()
-			$AnimatedSprite.stop()
-		STATE.STAGGER:
-			self.kb_timer.set_wait_time(stagger_time)
-			self.kb_timer.start()
-			$AnimatedSprite.stop()
-
-	current_state = new_state
-
-func _on_kb_timer_timeout():
-	self.kb_timer.stop()
-
-	match current_state:
-		STATE.KNOCKBACK:
-			self.current_state = STATE.STAGGER
-		STATE.STAGGER:
-			self.current_state = STATE.ADVANCE
-
 func _ready():
-	self.kb_timer.connect("timeout", self, "_on_kb_timer_timeout")
-	add_child(kb_timer)
-
-func _physics_process(delta):
-	match current_state:
-		STATE.ADVANCE:
-			do_advance(delta)
-		STATE.KNOCKBACK:
-			do_knockback()
-		STATE.STAGGER:
-			pass
-
-func do_advance(delta):
-	self.rotation = self.direction.angle()
-	var motion = direction * speed * delta
-	var collision = move_and_collide(motion)
-
-func do_knockback():
-	var motion = self.kb_dir * self.knockback_speed
-	move_and_slide(motion)
-
-func handle_projectile_collision(projectile, collision):
-	self.kb_dir = projectile.direction.bounce(collision.normal)
-	self.current_state = STATE.KNOCKBACK
-	self.health -= 1
-	$TextureProgress.value = (self.health / self.max_health) * $TextureProgress.max_value
-	projectile.queue_free()
-
-func handle_spider_attack(spider):
-	print("spider attacked")
+	max_health = 3.0
+	health = max_health
+	melee_damage = 0.25
+	initial_direction = Vector2.UP
+	team = "PLAYER"
+	._ready()
