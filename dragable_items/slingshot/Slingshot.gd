@@ -6,9 +6,7 @@ var is_selected := false setget set_is_selected
 var reference_pos := Vector2()
 
 signal selected(selected_id)
-
-func _ready():
-	connect("selected", get_parent(), "on_Slingshot_selected")
+signal shoot(projectile)
 
 func init(pos):
 	position = pos
@@ -18,7 +16,6 @@ func set_is_selected(val):
 	print("setter called")
 	$Control/Label.visible = is_selected
 
-# should be handled from slingshots.gd
 func _unhandled_input(event):
 	if not is_selected:
 		return
@@ -36,7 +33,7 @@ func _unhandled_input(event):
 		reference_pos = Vector2()
 		var projectile = projectile_class.instance()
 		projectile.init(position, noramlized_direction)
-		get_parent().spawn_projectile(projectile)
+		emit_signal("shoot", projectile)
 
 func _on_SelectorButton_released():
 	self.is_selected = not is_selected
