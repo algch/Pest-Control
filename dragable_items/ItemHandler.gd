@@ -5,6 +5,11 @@ var slingshot_class = preload("res://dragable_items/slingshot/Slingshot.tscn")
 var poison_class = preload("res://dragable_items/poison/Poison.tscn")
 var ant_class = preload("res://dragable_items/ant/Ant.tscn")
 
+var horizontal_slots = 8
+var vertical_slots = 4
+onready var h_slot_size = $DraggableArea.position.x / self.horizontal_slots
+onready var v_slot_size = $DraggableArea.position.y / self.vertical_slots
+
 func _on_Gui_item_dragged(item_name: String, pos: Vector2):
 	if not is_in_draggable_area(pos):
 		return
@@ -40,3 +45,24 @@ func on_Slingshot_selected(slingshot_id):
 
 func on_Slingshot_shoot(projectile):
 	$Projectiles.add_child(projectile)
+
+func _draw():
+	var local_x = 0.0
+	var local_y = 0.0
+	var local_color = Color(0.2, 0.1, 0.5)
+	for _i in range(horizontal_slots):
+		local_y = 0
+		for _j in range(vertical_slots):
+			var from = Vector2(local_x, local_y)
+			var size = Vector2(h_slot_size, v_slot_size)
+			draw_rect(
+				Rect2(
+					from,
+					size
+				),
+				local_color,
+				false
+			)
+			local_color += Color(0.01, 0.01, 0.01)
+			local_y += self.v_slot_size
+		local_x += self.h_slot_size
