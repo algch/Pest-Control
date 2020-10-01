@@ -8,9 +8,6 @@ var reference_pos := Vector2()
 signal selected(selected_id)
 signal shoot(projectile)
 
-func init(pos):
-	position = pos
-
 func set_is_selected(val):
 	is_selected = val
 	print("setter called")

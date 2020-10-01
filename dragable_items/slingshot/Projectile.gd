@@ -5,9 +5,6 @@ var direction = Vector2(-1,-1)
 var speed = 500.0
 var bounces = 3
 
-func _ready():
-	pass # Replace with function body.
-
 func init(pos: Vector2, dir: Vector2):
 	position = pos
 	direction = dir

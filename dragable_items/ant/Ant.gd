@@ -1,9 +1,6 @@
 extends "res://entities/WalkingCharacter.gd"
 
 
-func init(pos):
-	self.position = pos
-
 func _ready():
 	max_health = 3.0
 	health = max_health

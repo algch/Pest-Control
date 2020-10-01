@@ -32,20 +32,20 @@ margin_right = 200.0
 margin_bottom = 100.0
 texture_normal = ExtResource( 4 )
 
-[node name="SlingshotButton" type="TextureButton" parent="GuiController/HBoxContainer"]
+[node name="AntButton" type="TextureButton" parent="GuiController/HBoxContainer"]
 margin_left = 204.0
 margin_right = 404.0
 margin_bottom = 100.0
-texture_normal = ExtResource( 1 )
+texture_normal = ExtResource( 3 )
 
-[node name="AntButton" type="TextureButton" parent="GuiController/HBoxContainer"]
+[node name="SlingshotButton" type="TextureButton" parent="GuiController/HBoxContainer"]
 margin_left = 408.0
 margin_right = 608.0
 margin_bottom = 100.0
-texture_normal = ExtResource( 3 )
+texture_normal = ExtResource( 1 )
 [connection signal="button_down" from="GuiController/HBoxContainer/PoisonButton" to="GuiController" method="_on_PoisonButton_button_down"]
 [connection signal="button_up" from="GuiController/HBoxContainer/PoisonButton" to="GuiController" method="_clear_state"]
-[connection signal="button_down" from="GuiController/HBoxContainer/SlingshotButton" to="GuiController" method="_on_SlingshotButton_button_down"]
-[connection signal="button_up" from="GuiController/HBoxContainer/SlingshotButton" to="GuiController" method="_clear_state"]
 [connection signal="button_down" from="GuiController/HBoxContainer/AntButton" to="GuiController" method="_on_AntButton_button_down"]
 [connection signal="button_up" from="GuiController/HBoxContainer/AntButton" to="GuiController" method="_clear_state"]
+[connection signal="button_down" from="GuiController/HBoxContainer/SlingshotButton" to="GuiController" method="_on_SlingshotButton_button_down"]
+[connection signal="button_up" from="GuiController/HBoxContainer/SlingshotButton" to="GuiController" method="_clear_state"]
