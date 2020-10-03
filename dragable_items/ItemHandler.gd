@@ -5,8 +5,8 @@ var slingshot_class = preload("res://dragable_items/slingshot/Slingshot.tscn")
 var poison_class = preload("res://dragable_items/poison/Poison.tscn")
 var ant_class = preload("res://dragable_items/ant/Ant.tscn")
 
-var horizontal_slots = 6
-var vertical_slots = 5
+var horizontal_slots = 5
+var vertical_slots = 4
 onready var h_slot_size = $DraggableArea.position.x / self.horizontal_slots
 onready var v_slot_size = $DraggableArea.position.y / self.vertical_slots
 

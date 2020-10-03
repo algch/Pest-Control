@@ -5,12 +5,12 @@
 [ext_resource path="res://enemies/spider/Spider.tscn" type="PackedScene" id=5]
 [ext_resource path="res://dragable_items/ItemHandler.tscn" type="PackedScene" id=6]
 
-[node name="Waves" type="Node"]
+[node name="Waves" type="Node2D"]
 script = ExtResource( 2 )
 
 [node name="StaticBody2D" type="StaticBody2D" parent="."]
-collision_layer = 3
-collision_mask = 3
+collision_layer = 31
+collision_mask = 0
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="StaticBody2D"]
 polygon = PoolVector2Array( 0, 0, 0, 1176, 720, 1176, 720, 0, 720, -128, 712, -128, 0, -128, 0, -120, 712, -120, 712, 0, 712, 1168, 8, 1168, 8, 0, 8, -120, 0, -120 )
@@ -22,4 +22,11 @@ position = Vector2( 8, 640 )
 
 [node name="Spider" parent="." instance=ExtResource( 5 )]
 position = Vector2( 368, 48 )
+
+[node name="MoneyTimer" type="Timer" parent="."]
+autostart = true
+
+[node name="Sprite" type="Sprite" parent="."]
+[connection signal="dragging_started" from="Gui" to="." method="_on_Gui_dragging_started"]
 [connection signal="item_dragged" from="Gui" to="ItemHandler" method="_on_Gui_item_dragged"]
+[connection signal="timeout" from="MoneyTimer" to="." method="_on_MoneyTimer_timeout"]

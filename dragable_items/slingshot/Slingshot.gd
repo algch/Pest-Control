@@ -4,9 +4,19 @@ var projectile_class = preload("./Projectile.tscn")
 var is_selected := false setget set_is_selected
 # listeing for input state may be better, use states instead
 var reference_pos := Vector2()
+var team = "PLAYER"
+var max_health = 3.0
+var health = max_health setget set_health
 
 signal selected(selected_id)
 signal shoot(projectile)
+
+func set_health(new_health):
+	if new_health <= 0:
+		queue_free()
+
+	health = new_health
+	$TextureProgress.value = (self.health / self.max_health) * $TextureProgress.max_value
 
 func set_is_selected(val):
 	is_selected = val
@@ -36,3 +46,9 @@ func _on_SelectorButton_released():
 	self.is_selected = not is_selected
 	if is_selected:
 		emit_signal("selected", get_instance_id())
+
+func handle_melee_attack(attacker):
+	if attacker.team == self.team:
+		return
+
+	self.health -= attacker.melee_damage

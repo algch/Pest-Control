@@ -64,6 +64,7 @@ func set_current_state(new_state):
 func _on_AttackTimer_timeout():
 	if not is_instance_valid(self.current_objective):
 		$AttackTimer.stop()
+		return
 	
 	self.current_objective.handle_melee_attack(self)
 	$AttackTimer.start()
