@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=2]
 
-[ext_resource path="res://dragable_items/ItemHandler.gd" type="Script" id=1]
+[ext_resource path="res://draggable_items/ItemHandler.gd" type="Script" id=1]
 
 [node name="ItemHandler" type="Node2D"]
 script = ExtResource( 1 )
@@ -11,3 +11,8 @@ position = Vector2( 704, 528 )
 [node name="Items" type="Node" parent="."]
 
 [node name="Projectiles" type="Node" parent="."]
+
+[node name="MoneyTimer" type="Timer" parent="."]
+wait_time = 2.5
+autostart = true
+[connection signal="timeout" from="MoneyTimer" to="." method="_on_MoneyTimer_timeout"]

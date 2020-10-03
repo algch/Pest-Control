@@ -1,6 +1,10 @@
 extends "res://entities/WalkingCharacter.gd"
 
 
+var price = 50
+
+class_name Ant
+
 func _ready():
 	max_health = 3.0
 	health = max_health

@@ -8,9 +8,26 @@
 
 config_version=4
 
-_global_script_classes=[  ]
+_global_script_classes=[ {
+"base": "KinematicBody2D",
+"class": "Ant",
+"language": "GDScript",
+"path": "res://draggable_items/ant/Ant.gd"
+}, {
+"base": "StaticBody2D",
+"class": "Poison",
+"language": "GDScript",
+"path": "res://draggable_items/poison/Poison.gd"
+}, {
+"base": "StaticBody2D",
+"class": "Slingshot",
+"language": "GDScript",
+"path": "res://draggable_items/slingshot/Slingshot.gd"
+} ]
 _global_script_class_icons={
-
+"Ant": "",
+"Poison": "",
+"Slingshot": ""
 }
 
 [application]

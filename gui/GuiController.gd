@@ -1,9 +1,9 @@
 extends Control
 
 
-var poison_sprite = load("res://dragable_items/poison/sprites/poison.png")
-var slingshot_sprite = load("res://dragable_items/slingshot/sprites/slingshot.png")
-var ant_sprite = load("res://dragable_items/ant/sprites/ant.png")
+var poison_sprite = load("res://draggable_items/poison/sprites/poison.png")
+var slingshot_sprite = load("res://draggable_items/slingshot/sprites/slingshot.png")
+var ant_sprite = load("res://draggable_items/ant/sprites/ant.png")
 
 var is_dragging = false
 var drag_item_name = ""

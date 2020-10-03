@@ -1,9 +1,12 @@
 extends KinematicBody2D
 
 
-var direction = Vector2(-1,-1)
+var explosion_class = preload("res://draggable_items/slingshot/Explosion.tscn")
+
+var direction = Vector2.UP
 var speed = 500.0
-var bounces = 3
+
+signal exploded(explosion)
 
 func init(pos: Vector2, dir: Vector2):
 	position = pos
@@ -14,11 +17,14 @@ func _physics_process(delta):
 	var collision = move_and_collide(motion)
 
 	if collision:
-		if not bounces:
-			queue_free()
-
-		direction = direction.bounce(collision.normal)
+		self.direction = self.direction.bounce(collision.normal)
 		if collision.collider.has_method("handle_projectile_collision"):
 			collision.collider.handle_projectile_collision(self, collision)
 
-		bounces -= 1
+		destroy()
+
+func destroy():
+	var explosion = explosion_class.instance()
+	explosion.global_position = self.global_position
+	emit_signal("exploded", explosion)
+	queue_free()

@@ -26,4 +26,3 @@ func handle_poisoned(poisoner):
 	self.poison_damage = poisoner.poison_damage
 	self.poisoned_timer.set_wait_time(poisoner.poison_time)
 	self.poisoned_timer.start()
-	print(self.name, " has been poisoned by ", poisoner.name)

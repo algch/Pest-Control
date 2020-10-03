@@ -1,20 +1,25 @@
 extends Node2D
 
 
-var slingshot_class = preload("res://dragable_items/slingshot/Slingshot.tscn")
-var poison_class = preload("res://dragable_items/poison/Poison.tscn")
-var ant_class = preload("res://dragable_items/ant/Ant.tscn")
+signal money_changed(value)
+
+var slingshot_class = preload("res://draggable_items/slingshot/Slingshot.tscn")
+var poison_class = preload("res://draggable_items/poison/Poison.tscn")
+var ant_class = preload("res://draggable_items/ant/Ant.tscn")
 
 var horizontal_slots = 5
 var vertical_slots = 4
 onready var h_slot_size = $DraggableArea.position.x / self.horizontal_slots
 onready var v_slot_size = $DraggableArea.position.y / self.vertical_slots
+var money = 0 setget set_money
+var money_increase := 5
 
 var cells := []
 
 class Cell:
 	var top_left : Vector2
 	var bottom_right : Vector2
+	var is_free := true
 
 	func _init(_top_left : Vector2, _bottom_right :Vector2):
 		self.top_left = _top_left
@@ -28,6 +33,13 @@ class Cell:
 	func get_center_position():
 		return self.top_left + (self.bottom_right - self.top_left) / 2
 
+func set_money(new_money):
+	money = new_money
+	emit_signal("money_changed", self.money)
+
+func _on_MoneyTimer_timeout():
+	self.money += money_increase
+
 func _find_cell(pos : Vector2):
 	for cell in cells:
 		if cell.is_inside(pos):
@@ -37,18 +49,24 @@ func _on_Gui_item_dragged(item_name: String, pos: Vector2):
 	if not is_in_draggable_area(pos):
 		return
 
+	var item = instance_item_by_name(item_name)
+	if self.money < item.price:
+		return
+	self.money -= item.price
+	spawn_item(item, pos)
+
+func instance_item_by_name(item_name):
 	match item_name:
 		"slingshot":
 			var slingshot = slingshot_class.instance()
 			slingshot.connect("selected", self, "on_Slingshot_selected")
 			slingshot.connect("shoot", self, "on_Slingshot_shoot")
-			spawn_item(slingshot, pos)
+			return slingshot
 		"poison":
-			var poison = poison_class.instance()
-			spawn_item(poison, pos)
+			return poison_class.instance()
 		"ant":
-			var ant = ant_class.instance()
-			spawn_item(ant, pos)
+			return ant_class.instance()
+	return null
 
 func is_in_draggable_area(pos: Vector2):
 	var inside_x = pos.x >= self.global_position.x and pos.x < $DraggableArea.global_position.x
@@ -59,7 +77,11 @@ func spawn_item(item, mouse_pos):
 	var local_mouse_pos = mouse_pos - self.position
 	var found_cell = self._find_cell(local_mouse_pos)
 	if found_cell:
+		if not found_cell.is_free:
+			return
 		var item_pos = found_cell.get_center_position() + self.position
+		if not item is Ant:
+			found_cell.is_free = false
 		item.position = item_pos
 		$Items.add_child(item)
 
@@ -69,7 +91,11 @@ func on_Slingshot_selected(slingshot_id):
 			slingshot.is_selected = false
 
 func on_Slingshot_shoot(projectile):
+	projectile.connect("exploded", self, "_on_Projectile_exploded")
 	$Projectiles.add_child(projectile)
+
+func _on_Projectile_exploded(explosion):
+	$Projectiles.add_child(explosion)
 
 func _ready():
 	var local_x = 0.0
@@ -85,14 +111,29 @@ func _ready():
 			local_y += self.v_slot_size
 		local_x += self.h_slot_size
 
+func _process(_delta):
+	update()
+
 func _draw():
-	var local_color = Color(0, 0, 0.5)
+	var grid_color = Color(0, 0, 0.5)
 	for cell in cells:
-		draw_rect(
-			Rect2(
-				cell.top_left,
-				cell.bottom_right - cell.top_left
-			),
-			local_color,
-			false
-		)
+		if cell.is_free:
+			draw_rect(
+				Rect2(
+					cell.top_left,
+					cell.bottom_right - cell.top_left
+				),
+				grid_color,
+				false
+			)
+		else:
+			var local_color = grid_color.inverted()
+			local_color.a = 0.2
+			draw_rect(
+				Rect2(
+					cell.top_left,
+					cell.bottom_right - cell.top_left
+				),
+				local_color,
+				true
+			)

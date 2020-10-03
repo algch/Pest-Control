@@ -17,8 +17,8 @@
 [ext_resource path="res://enemies/spider/animations/walk/Spider_Walking0004.png" type="Texture" id=15]
 [ext_resource path="res://enemies/spider/animations/walk/Spider_Walking0005.png" type="Texture" id=16]
 [ext_resource path="res://enemies/spider/animations/walk/Spider_Walking0007.png" type="Texture" id=17]
-[ext_resource path="res://dragable_items/sprites/health_bar_under.png" type="Texture" id=18]
-[ext_resource path="res://dragable_items/sprites/health_bar_progress.png" type="Texture" id=19]
+[ext_resource path="res://draggable_items/sprites/health_bar_under.png" type="Texture" id=18]
+[ext_resource path="res://draggable_items/sprites/health_bar_progress.png" type="Texture" id=19]
 [ext_resource path="res://enemies/spider/animations/attack/Spider_Attack0010.png" type="Texture" id=20]
 [ext_resource path="res://enemies/spider/animations/attack/Spider_Attack0011.png" type="Texture" id=21]
 [ext_resource path="res://enemies/spider/animations/attack/Spider_Attack0009.png" type="Texture" id=22]
@@ -48,6 +48,7 @@
 [ext_resource path="res://enemies/spider/animations/attack/Spider_Attack0013.png" type="Texture" id=46]
 [ext_resource path="res://enemies/spider/animations/attack/Spider_Attack0012.png" type="Texture" id=47]
 [ext_resource path="res://enemies/spider/animations/attack/Spider_Attack0001.png" type="Texture" id=48]
+
 
 [sub_resource type="SpriteFrames" id=1]
 animations = [ {
