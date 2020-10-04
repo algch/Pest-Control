@@ -1,5 +1,8 @@
 extends StaticBody2D
 
+
+signal destroyed(cell_index)
+
 var projectile_class = preload("./Projectile.tscn")
 var is_selected := false setget set_is_selected
 # listeing for input state may be better, use states instead
@@ -8,6 +11,7 @@ var team = "PLAYER"
 var max_health = 3.0
 var health = max_health setget set_health
 var cost = 15
+var current_cell = null
 
 class_name Slingshot
 
@@ -35,6 +39,7 @@ func set_current_state(new_state):
 
 func set_health(new_health):
 	if new_health <= 0:
+		emit_signal("destroyed", current_cell)
 		queue_free()
 
 	health = new_health
