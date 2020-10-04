@@ -65,6 +65,9 @@ func shoot_projectile():
 	if not raw_direction:
 		raw_direction = Vector2.UP
 
+	if not _is_aiming_angle_valid(raw_direction):
+		return
+
 	var projectile = projectile_class.instance()
 	projectile.init(position, raw_direction.normalized())
 	emit_signal("shoot", projectile)
@@ -81,3 +84,25 @@ func handle_melee_attack(attacker):
 		return
 
 	self.health -= attacker.melee_damage
+
+func _process(_delta):
+	update()
+
+func _draw():
+	if not self.is_selected or self.current_state != STATE.AIMING:
+		return
+
+	var raw_direction = reference_pos - get_global_mouse_position()
+	if not raw_direction:
+		raw_direction = Vector2.UP
+
+	var color = Color(1, 1, 1)
+	if not _is_aiming_angle_valid(raw_direction):
+		color += Color(0, -1, -1)
+	draw_line(Vector2(), raw_direction.normalized() * 100, color)
+
+func _is_aiming_angle_valid(dir : Vector2) -> bool:
+	var aiming_angle = rad2deg(dir.angle_to(Vector2.UP))
+	if not (aiming_angle >= -45 and aiming_angle <= 45):
+		return false
+	return true
