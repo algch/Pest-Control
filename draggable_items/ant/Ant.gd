@@ -15,7 +15,7 @@ func _on_CellCheckTimer_timeout():
 func _ready():
 	max_health = 3.0
 	health = max_health
-	melee_damage = 0.25
+	melee_damage = 0.75
 	initial_direction = Vector2.UP
 	team = "PLAYER"
 	connect("tree_exited", self, "_on_Ant_tree_exited")

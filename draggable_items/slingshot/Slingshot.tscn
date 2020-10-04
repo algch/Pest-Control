@@ -28,7 +28,7 @@ shape = SubResource( 1 )
 [node name="Sprite" type="Sprite" parent="."]
 texture = ExtResource( 5 )
 
-[node name="TextureProgress" type="TextureProgress" parent="."]
+[node name="HealthBar" type="TextureProgress" parent="."]
 margin_left = -32.0
 margin_top = 40.0
 margin_right = 40.0
@@ -39,6 +39,20 @@ texture_progress = ExtResource( 3 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="CooldownBar" type="TextureProgress" parent="."]
+visible = false
+margin_left = -32.0
+margin_top = 56.0
+margin_right = 8.0
+margin_bottom = 96.0
+texture_under = ExtResource( 4 )
+texture_progress = ExtResource( 3 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Tween" type="Tween" parent="."]
 
 [node name="Control" type="Control" parent="."]
 margin_right = 40.0
@@ -59,4 +73,8 @@ text = "SELECTED"
 [node name="SelectorButton" type="TouchScreenButton" parent="."]
 position = Vector2( -36, -36 )
 shape = SubResource( 3 )
+
+[node name="CooldownTimer" type="Timer" parent="."]
+wait_time = 3.0
 [connection signal="released" from="SelectorButton" to="." method="_on_SelectorButton_released"]
+[connection signal="timeout" from="CooldownTimer" to="." method="_on_CooldownTimer_timeout"]

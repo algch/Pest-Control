@@ -12,6 +12,7 @@ var max_health = 3.0
 var health = max_health setget set_health
 var cost = 15
 var current_cell = null
+var can_shoot = true
 
 class_name Slingshot
 
@@ -43,7 +44,7 @@ func set_health(new_health):
 		queue_free()
 
 	health = new_health
-	$TextureProgress.value = (self.health / self.max_health) * $TextureProgress.max_value
+	$HealthBar.value = (self.health / self.max_health) * $HealthBar.max_value
 
 func set_is_selected(val):
 	is_selected = val
@@ -61,6 +62,9 @@ func _unhandled_input(event):
 		self.current_state = STATE.IDLE
 
 func shoot_projectile():
+	if not self.can_shoot:
+		return
+
 	var raw_direction = reference_pos - get_global_mouse_position()
 	if not raw_direction:
 		raw_direction = Vector2.UP
@@ -73,6 +77,19 @@ func shoot_projectile():
 	emit_signal("shoot", projectile)
 
 	self.current_state = STATE.IDLE
+	self.can_shoot = false
+	start_cooldown()
+
+func start_cooldown() -> void:
+	$CooldownBar.visible = true
+	$CooldownTimer.start()
+	$Tween.interpolate_property($CooldownBar, "value", $CooldownBar.min_value, $CooldownBar.max_value, $CooldownTimer.wait_time)
+	$Tween.start()
+
+func _on_CooldownTimer_timeout():
+	$CooldownTimer.stop()
+	$CooldownBar.visible = false
+	self.can_shoot = true
 
 func _on_SelectorButton_released():
 	self.is_selected = not is_selected
@@ -97,7 +114,7 @@ func _draw():
 		raw_direction = Vector2.UP
 
 	var color = Color(1, 1, 1)
-	if not _is_aiming_angle_valid(raw_direction):
+	if not _is_aiming_angle_valid(raw_direction) or not self.can_shoot:
 		color += Color(0, -1, -1)
 	draw_line(Vector2(), raw_direction.normalized() * 100, color)
 
