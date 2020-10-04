@@ -7,7 +7,7 @@ var reference_pos := Vector2()
 var team = "PLAYER"
 var max_health = 3.0
 var health = max_health setget set_health
-var price = 15
+var cost = 15
 
 class_name Slingshot
 

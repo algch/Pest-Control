@@ -50,9 +50,9 @@ func _on_Gui_item_dragged(item_name: String, pos: Vector2):
 		return
 
 	var item = instance_item_by_name(item_name)
-	if self.money < item.price:
+	if self.money < item.cost:
 		return
-	self.money -= item.price
+	self.money -= item.cost
 	spawn_item(item, pos)
 
 func instance_item_by_name(item_name):

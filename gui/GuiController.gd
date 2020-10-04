@@ -17,20 +17,20 @@ func _ready():
 func _on_PoisonButton_button_down():
 	is_dragging = true
 	drag_item_name = "poison"
-	Gui.item_dragging_started(poison_sprite)
+	Gui.item_dragging_started(poison_sprite, 30)
 
 func _on_SlingshotButton_button_down():
 	is_dragging = true
 	drag_item_name = "slingshot"
-	Gui.item_dragging_started(slingshot_sprite)
+	Gui.item_dragging_started(slingshot_sprite, 15)
 
 func _on_AntButton_button_down():
 	is_dragging = true
 	drag_item_name = "ant"
-	Gui.item_dragging_started(ant_sprite)
+	Gui.item_dragging_started(ant_sprite, 50)
 
 func _clear_state():
 	is_dragging = false
 	var mouse_pos = get_global_mouse_position()
 	Gui.drag_item(drag_item_name, mouse_pos)
-	Gui.item_dragging_started(null)
+	Gui.item_dragging_started(null, 0)

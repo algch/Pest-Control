@@ -1,7 +1,7 @@
 extends "res://entities/WalkingCharacter.gd"
 
 
-var price = 50
+var cost = 50
 
 class_name Ant
 
