@@ -92,9 +92,11 @@ func _on_CooldownTimer_timeout():
 	self.can_shoot = true
 
 func _on_SelectorButton_released():
-	self.is_selected = not is_selected
-	if is_selected:
-		emit_signal("selected", get_instance_id())
+	if self.is_selected:
+		return
+
+	self.is_selected = true
+	emit_signal("selected", get_instance_id())
 
 func handle_melee_attack(attacker):
 	if attacker.team == self.team:

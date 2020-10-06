@@ -51,15 +51,15 @@
 
 [sub_resource type="SpriteFrames" id=1]
 animations = [ {
-"frames": [ ExtResource( 45 ), ExtResource( 26 ), ExtResource( 27 ), ExtResource( 30 ), ExtResource( 16 ), ExtResource( 24 ), ExtResource( 41 ), ExtResource( 21 ), ExtResource( 9 ), ExtResource( 23 ), ExtResource( 19 ), ExtResource( 46 ), ExtResource( 47 ), ExtResource( 44 ), ExtResource( 43 ), ExtResource( 25 ), ExtResource( 40 ), ExtResource( 39 ), ExtResource( 42 ), ExtResource( 36 ), ExtResource( 33 ), ExtResource( 38 ), ExtResource( 35 ), ExtResource( 34 ), ExtResource( 29 ), ExtResource( 37 ), ExtResource( 31 ), ExtResource( 28 ), ExtResource( 32 ) ],
-"loop": true,
-"name": "attack",
-"speed": 28.0
-}, {
 "frames": [ ExtResource( 4 ), ExtResource( 3 ), ExtResource( 18 ), ExtResource( 17 ), ExtResource( 11 ), ExtResource( 14 ), ExtResource( 13 ), ExtResource( 6 ), ExtResource( 12 ), ExtResource( 20 ), ExtResource( 2 ), ExtResource( 22 ), ExtResource( 15 ), ExtResource( 8 ), ExtResource( 1 ), ExtResource( 5 ) ],
 "loop": true,
 "name": "walk",
 "speed": 15.0
+}, {
+"frames": [ ExtResource( 45 ), ExtResource( 26 ), ExtResource( 27 ), ExtResource( 30 ), ExtResource( 16 ), ExtResource( 24 ), ExtResource( 41 ), ExtResource( 21 ), ExtResource( 9 ), ExtResource( 23 ), ExtResource( 19 ), ExtResource( 46 ), ExtResource( 47 ), ExtResource( 44 ), ExtResource( 43 ), ExtResource( 25 ), ExtResource( 40 ), ExtResource( 39 ), ExtResource( 42 ), ExtResource( 36 ), ExtResource( 33 ), ExtResource( 38 ), ExtResource( 35 ), ExtResource( 34 ), ExtResource( 29 ), ExtResource( 37 ), ExtResource( 31 ), ExtResource( 28 ), ExtResource( 32 ) ],
+"loop": true,
+"name": "attack",
+"speed": 28.0
 } ]
 
 [sub_resource type="CircleShape2D" id=2]
@@ -70,10 +70,11 @@ collision_mask = 2
 script = ExtResource( 48 )
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+modulate = Color( 0.254902, 0.490196, 0.980392, 1 )
 rotation = -1.5708
 frames = SubResource( 1 )
 animation = "walk"
-frame = 12
+frame = 8
 playing = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]

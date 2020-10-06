@@ -52,9 +52,6 @@ func _on_Gui_item_dragged(item_name: String, pos: Vector2):
 		return
 
 	var item = instance_item_by_name(item_name)
-	if self.money < item.cost:
-		return
-	self.money -= item.cost
 	spawn_item(item, pos)
 
 func instance_item_by_name(item_name):
@@ -106,11 +103,16 @@ func is_in_draggable_area(pos: Vector2):
 	return inside_x and inside_y
 
 func spawn_item(item, mouse_pos):
+
 	var local_mouse_pos = mouse_pos - self.position
 	var found_cell = self._find_cell(local_mouse_pos)
 
 	if not found_cell or not found_cell.is_free:
 		return
+
+	if self.money < item.cost:
+		return
+	self.money -= item.cost
 
 	var item_pos = found_cell.get_center_position() + self.position
 	item.position = item_pos
