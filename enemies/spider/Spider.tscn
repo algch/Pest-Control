@@ -74,7 +74,7 @@ modulate = Color( 1, 0.333333, 0.333333, 1 )
 rotation = -1.5708
 frames = SubResource( 1 )
 animation = "walk"
-frame = 7
+frame = 3
 playing = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]

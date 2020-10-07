@@ -76,5 +76,6 @@ shape = SubResource( 3 )
 
 [node name="CooldownTimer" type="Timer" parent="."]
 wait_time = 3.0
+[connection signal="pressed" from="SelectorButton" to="." method="_on_SelectorButton_pressed"]
 [connection signal="released" from="SelectorButton" to="." method="_on_SelectorButton_released"]
 [connection signal="timeout" from="CooldownTimer" to="." method="_on_CooldownTimer_timeout"]
