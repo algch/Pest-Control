@@ -58,7 +58,6 @@ func instance_item_by_name(item_name):
 	match item_name:
 		"slingshot":
 			var slingshot = slingshot_class.instance()
-			slingshot.connect("selected", self, "on_Slingshot_selected")
 			slingshot.connect("shoot", self, "on_Slingshot_shoot")
 			slingshot.connect("destroyed", self, "_on_item_destroyed")
 			return slingshot
@@ -119,11 +118,6 @@ func spawn_item(item, mouse_pos):
 	item.current_cell = found_cell.index
 	found_cell.is_free = false
 	$Items.add_child(item)
-
-func on_Slingshot_selected(slingshot_id):
-	for slingshot in get_tree().get_nodes_in_group("slingshots"):
-		if slingshot.get_instance_id() != slingshot_id:
-			slingshot.is_selected = false
 
 func on_Slingshot_shoot(projectile):
 	projectile.connect("exploded", self, "_on_Projectile_exploded")

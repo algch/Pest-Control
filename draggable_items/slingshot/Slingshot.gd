@@ -4,7 +4,6 @@ extends StaticBody2D
 signal destroyed(cell_index)
 
 var projectile_class = preload("./Projectile.tscn")
-var is_selected := false setget set_is_selected
 # listeing for input state may be better, use states instead
 var reference_pos := Vector2()
 var team = "PLAYER"
@@ -13,7 +12,7 @@ var health = max_health setget set_health
 var cost = 15
 var current_cell = null
 var can_shoot = true
-var shoot_range = 300.0
+var shoot_range = 220.0
 var action_thereshold = 10.0
 
 class_name Slingshot
@@ -25,7 +24,6 @@ enum STATE {
 
 var current_state = STATE.IDLE setget set_current_state
 
-signal selected(selected_id)
 signal shoot(projectile)
 
 func set_current_state(new_state):
@@ -36,9 +34,9 @@ func set_current_state(new_state):
 			self.reference_pos = Vector2()
 		STATE.AIMING:
 			self.reference_pos = get_global_mouse_position()
-			if self.reference_pos.distance_to(self.global_position) <= $SelectorButton.shape.radius:
-				current_state = STATE.IDLE
-				self.reference_pos = Vector2()
+			# if self.reference_pos.distance_to(self.global_position) <= $SelectorButton.shape.radius:
+			# 	current_state = STATE.IDLE
+			# 	self.reference_pos = Vector2()
 
 func set_health(new_health):
 	if new_health <= 0:
@@ -47,21 +45,6 @@ func set_health(new_health):
 
 	health = new_health
 	$HealthBar.value = (self.health / self.max_health) * $HealthBar.max_value
-
-func set_is_selected(val):
-	is_selected = val
-	$Control/Label.visible = is_selected
-
-func _unhandled_input(event):
-	if not is_selected:
-		return
-
-	if event.is_action_pressed("touch"):
-		self.current_state = STATE.AIMING
-
-	if event.is_action_released("touch") and self.reference_pos != Vector2():
-		shoot_projectile()
-		self.current_state = STATE.IDLE
 
 func shoot_projectile():
 	if not self.can_shoot:
@@ -94,11 +77,14 @@ func _on_CooldownTimer_timeout():
 	self.can_shoot = true
 
 func _on_SelectorButton_pressed():
-	if self.is_selected:
-		return
-
-	self.is_selected = true
+	self.current_state = STATE.AIMING
 	emit_signal("selected", get_instance_id())
+
+func _on_SelectorButton_released():
+	# if not self.reference_pos != Vector2():
+	# 	return
+	shoot_projectile()
+	self.current_state = STATE.IDLE
 
 func handle_melee_attack(attacker):
 	if attacker.team == self.team:
@@ -110,7 +96,7 @@ func _process(_delta):
 	update()
 
 func _draw():
-	if not self.is_selected or self.current_state != STATE.AIMING:
+	if self.current_state != STATE.AIMING:
 		return
 
 	var raw_direction = reference_pos - get_global_mouse_position()

@@ -4,7 +4,7 @@ extends KinematicBody2D
 var explosion_class = preload("res://draggable_items/slingshot/Explosion.tscn")
 
 var direction = Vector2.UP
-var speed = 500.0
+var speed = 1500.0
 var distance_span
 
 signal exploded(explosion)
@@ -26,7 +26,8 @@ func _physics_process(delta):
 		destroy()
 
 func _ready():
-	$Timer.set_wait_time(distance_span / speed)
+	var wait_time = distance_span / speed
+	$Timer.set_wait_time(wait_time)
 	$Timer.connect("timeout", self, "_on_Timer_timeout")
 	$Timer.start()
 
