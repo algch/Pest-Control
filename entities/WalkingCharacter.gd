@@ -103,7 +103,7 @@ func do_approach(delta):
 	var dir_to_objective = self.current_objective.global_position - self.global_position
 	var distance_to_objective = dir_to_objective.length()
 	var min_attack_dist = $CollisionShape2D.shape.radius + self.current_objective.get_node("CollisionShape2D").shape.radius + 10
-	if distance_to_objective <= min_attack_dist:
+	if distance_to_objective <= min_attack_dist and $AttackArea.overlaps_body(self.current_objective):
 		self.current_state = STATE.ATTACK
 		return
 

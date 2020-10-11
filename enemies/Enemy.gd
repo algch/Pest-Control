@@ -32,18 +32,26 @@ func _on_DetectionArea_body_entered(body):
 		return
 	if body.team == self.team:
 		return
+	if self.current_objective and is_instance_valid(self.current_objective):
+		return
 
 	self.current_objective = body
 	self.current_state = STATE.APPROACH
 
 func _on_AttackTimer_timeout():
-	if not is_instance_valid(self.current_objective) or not $AttackArea.overlaps_body(self.current_objective):
+	if not self.current_objective or not is_instance_valid(self.current_objective):
 		$AttackTimer.stop()
 		self.current_state = STATE.ADVANCE
 		self.current_objective = null
 		return
+
+	if not $AttackArea.overlaps_body(self.current_objective):
+		$AttackTimer.stop()
+		self.current_state = STATE.APPROACH
+		return
 	
 	self.current_objective.handle_melee_attack(self)
+
 	if not is_instance_valid(self.current_objective) or self.current_objective.health <= 0:
 		$AttackTimer.stop()
 		self.current_state = STATE.ADVANCE
