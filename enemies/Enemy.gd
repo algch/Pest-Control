@@ -26,3 +26,29 @@ func handle_poisoned(poisoner):
 	self.poison_damage = poisoner.poison_damage
 	self.poisoned_timer.set_wait_time(poisoner.poison_time)
 	self.poisoned_timer.start()
+
+func _on_DetectionArea_body_entered(body):
+	if not body.has_method("handle_melee_attack"):
+		return
+	if body.team == self.team:
+		return
+
+	self.current_objective = body
+	self.current_state = STATE.APPROACH
+
+func _on_AttackTimer_timeout():
+	if not is_instance_valid(self.current_objective) or not $AttackArea.overlaps_body(self.current_objective):
+		$AttackTimer.stop()
+		self.current_state = STATE.ADVANCE
+		self.current_objective = null
+		return
+	
+	self.current_objective.handle_melee_attack(self)
+	if not is_instance_valid(self.current_objective) or self.current_objective.health <= 0:
+		$AttackTimer.stop()
+		self.current_state = STATE.ADVANCE
+		self.current_objective = null
+		return
+
+	$AttackTimer.start()
+	$AnimatedSprite.play("attack")

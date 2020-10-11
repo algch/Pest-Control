@@ -2,10 +2,13 @@ extends KinematicBody2D
 
 enum STATE {
 	ADVANCE,
+	APPROACH,
 	ATTACK,
 	KNOCKBACK,
 	STAGGER,
 }
+
+const HALF_PI = PI / 2
 
 var rotation_delta = deg2rad(1)
 var rotation_extents = deg2rad(22.5)
@@ -43,32 +46,31 @@ func set_current_state(new_state):
 	if current_state == new_state:
 		return
 
+	var text = ""
 	match new_state:
 		STATE.ADVANCE:
 			$AnimatedSprite.play("walk")
-			$ObjectiveCheckTimer.start()
+			text = "ADVANCE"
 		STATE.KNOCKBACK: 
 			self.kb_timer.set_wait_time(knockback_time)
 			self.kb_timer.start()
 			$AnimatedSprite.stop()
+			text = "KNOCKBACK"
 		STATE.STAGGER:
 			self.kb_timer.set_wait_time(stagger_time)
 			self.kb_timer.start()
 			$AnimatedSprite.stop()
+			text = "STAGGER"
 		STATE.ATTACK:
 			$AnimatedSprite.play("attack")
 			$AttackTimer.start()
+			text = "ATTACK"
+		STATE.APPROACH:
+			$AnimatedSprite.play("walk")
+			text = "APPROACH"
 
+	$Label.set_text(text)
 	current_state = new_state
-
-func _on_AttackTimer_timeout():
-	if not is_instance_valid(self.current_objective):
-		$AttackTimer.stop()
-		return
-	
-	self.current_objective.handle_melee_attack(self)
-	$AttackTimer.start()
-	$AnimatedSprite.play("attack")
 
 func _on_kb_timer_timeout():
 	self.kb_timer.stop()
@@ -88,14 +90,48 @@ func _physics_process(delta):
 		STATE.STAGGER:
 			pass
 		STATE.ATTACK:
-			do_check_objective()
+			pass
+		STATE.APPROACH:
+			do_approach(delta)
 
+func do_approach(delta):
+	if not self.current_objective or not is_instance_valid(current_objective):
+		self.current_state = STATE.ADVANCE
+		self.current_objective = null
+		return
+	
+	var dir_to_objective = self.current_objective.global_position - self.global_position
+	var distance_to_objective = dir_to_objective.length()
+	var min_attack_dist = $CollisionShape2D.shape.radius + self.current_objective.get_node("CollisionShape2D").shape.radius + 10
+	if distance_to_objective <= min_attack_dist:
+		self.current_state = STATE.ATTACK
+		return
+
+	var dir_angle = self.direction.angle()
+	if dir_angle <= dir_to_objective.angle() - deg2rad(10):
+		self.direction = self.direction.rotated(abs(rotation_delta))
+	else:
+		self.direction = self.direction.rotated(-abs(rotation_delta))
+	
+	self.rotation = self.direction.angle()
+	var motion = self.direction * self.speed * delta
+	move_and_collide(motion)
+	
 func do_advance(delta):
 	var init_dir_angle = self.initial_direction.angle()
 	var dir_angle = self.direction.angle()
-	if dir_angle <= init_dir_angle - rotation_extents or dir_angle >= init_dir_angle + rotation_extents:
-		self.rotation_delta *= -1
-	self.direction = self.direction.rotated(rotation_delta)
+	var facing_north = dir_angle < 0
+	if facing_north:
+		self.rotation_delta = abs(self.rotation_delta)
+		if dir_angle <= -HALF_PI:
+			self.rotation_delta *= -1
+	else:
+		if dir_angle >= init_dir_angle + rotation_extents:
+			self.rotation_delta = -abs(rotation_delta)
+		elif dir_angle <= init_dir_angle - rotation_extents:
+			self.rotation_delta = abs(rotation_delta)
+
+	self.direction = self.direction.rotated(self.rotation_delta)
 	self.rotation = self.direction.angle()
 	var motion = direction * speed * delta
 	var _collision = move_and_collide(motion)
@@ -104,12 +140,6 @@ func do_knockback():
 	var motion = self.kb_dir * self.knockback_speed
 	var _status = move_and_slide(motion)
 
-func do_check_objective():
-	var collider = $ObjectiveChecker.get_collider()
-	if not is_instance_valid(self.current_objective) or collider != self.current_objective:
-		self.current_objective = null
-		$AttackTimer.stop()
-		self.current_state = STATE.ADVANCE
 
 func handle_projectile_collision(projectile, collision):
 	self.kb_dir = projectile.direction.bounce(collision.normal)
@@ -122,16 +152,3 @@ func handle_melee_attack(attacker):
 		return
 
 	self.health -= attacker.melee_damage
-
-func _on_ObjectiveCheckTimer_timeout():
-	var collider = $ObjectiveChecker.get_collider()
-	if not collider:
-		return
-	if not collider.has_method("handle_melee_attack"):
-		return
-	if collider.team == self.team:
-		return
-
-	self.current_objective = collider
-	self.current_state = STATE.ATTACK
-	$ObjectiveCheckTimer.stop()
