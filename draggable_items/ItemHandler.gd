@@ -3,7 +3,7 @@ extends Node2D
 
 signal money_changed(value)
 
-var slingshot_class = preload("res://draggable_items/slingshot/Slingshot.tscn")
+var frog_class = preload("res://draggable_items/frog/Frog.tscn")
 var poison_class = preload("res://draggable_items/poison/Poison.tscn")
 var ant_class = preload("res://draggable_items/ant/Ant.tscn")
 
@@ -56,11 +56,11 @@ func _on_Gui_item_dragged(item_name: String, pos: Vector2):
 
 func instance_item_by_name(item_name):
 	match item_name:
-		"slingshot":
-			var slingshot = slingshot_class.instance()
-			slingshot.connect("shoot", self, "on_Slingshot_shoot")
-			slingshot.connect("destroyed", self, "_on_item_destroyed")
-			return slingshot
+		"frog":
+			var frog = frog_class.instance()
+			frog.connect("shoot", self, "on_Frog_shoot")
+			frog.connect("destroyed", self, "_on_item_destroyed")
+			return frog
 		"poison":
 			var poison = poison_class.instance()
 			poison.connect("destroyed", self, "_on_item_destroyed")
@@ -119,7 +119,7 @@ func spawn_item(item, mouse_pos):
 	found_cell.is_free = false
 	$Items.add_child(item)
 
-func on_Slingshot_shoot(projectile):
+func on_Frog_shoot(projectile):
 	projectile.connect("exploded", self, "_on_Projectile_exploded")
 	$Projectiles.add_child(projectile)
 

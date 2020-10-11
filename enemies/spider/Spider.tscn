@@ -82,7 +82,7 @@ modulate = Color( 1, 0.333333, 0.333333, 1 )
 rotation = -1.5708
 frames = SubResource( 1 )
 animation = "walk"
-frame = 3
+frame = 10
 playing = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -100,21 +100,14 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="ObjectiveChecker" type="RayCast2D" parent="."]
-position = Vector2( 32, 0 )
-enabled = true
-cast_to = Vector2( 70, 0 )
-
-[node name="ObjectiveCheckTimer" type="Timer" parent="."]
-wait_time = 0.5
-autostart = true
-
 [node name="AttackTimer" type="Timer" parent="."]
 
 [node name="DetectionArea" type="Area2D" parent="."]
+position = Vector2( 56, 0 )
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="DetectionArea"]
-polygon = PoolVector2Array( 0, 0, 0, -40, 64, -48, 88, -32, 96, 0, 88, 32, 64, 48, 0, 40 )
+position = Vector2( -24, 0 )
+polygon = PoolVector2Array( 24, -32, 64, -56, 104, -32, 112, 0, 104, 32, 64, 56, 24, 32 )
 
 [node name="AttackArea" type="Area2D" parent="."]
 position = Vector2( 72, 0 )
@@ -123,16 +116,15 @@ position = Vector2( 72, 0 )
 shape = SubResource( 5 )
 
 [node name="Label" type="Label" parent="."]
-margin_left = 88.0
-margin_top = -40.0
-margin_right = 219.0
-margin_bottom = -10.0
-rect_rotation = 90.0
+margin_left = -80.0
+margin_top = 72.0
+margin_right = 111.0
+margin_bottom = 102.0
+rect_rotation = -90.0
 custom_fonts/font = SubResource( 4 )
 text = "ADVANCE"
 __meta__ = {
 "_edit_use_anchors_": false
 }
-[connection signal="timeout" from="ObjectiveCheckTimer" to="." method="_on_ObjectiveCheckTimer_timeout"]
 [connection signal="timeout" from="AttackTimer" to="." method="_on_AttackTimer_timeout"]
 [connection signal="body_entered" from="DetectionArea" to="." method="_on_DetectionArea_body_entered"]

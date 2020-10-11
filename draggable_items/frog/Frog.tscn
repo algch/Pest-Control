@@ -1,28 +1,28 @@
 [gd_scene load_steps=7 format=2]
 
-[ext_resource path="res://draggable_items/slingshot/Slingshot.gd" type="Script" id=1]
-[ext_resource path="res://draggable_items/sprites/health_bar_progress.png" type="Texture" id=3]
-[ext_resource path="res://draggable_items/sprites/health_bar_under.png" type="Texture" id=4]
-[ext_resource path="res://draggable_items/slingshot/sprites/slingshot.png" type="Texture" id=5]
+[ext_resource path="res://draggable_items/sprites/health_bar_progress.png" type="Texture" id=1]
+[ext_resource path="res://draggable_items/sprites/health_bar_under.png" type="Texture" id=2]
+[ext_resource path="res://draggable_items/frog/Frog.gd" type="Script" id=3]
+[ext_resource path="res://draggable_items/frog/sprites/frog.png" type="Texture" id=4]
 
 [sub_resource type="CircleShape2D" id=1]
-radius = 36.0
+radius = 54.0
 
-[sub_resource type="CircleShape2D" id=3]
-radius = 36.0
+[sub_resource type="CircleShape2D" id=2]
+radius = 54.0
 
-[node name="Slingshot" type="StaticBody2D" groups=[
-"slingshots",
-]]
+[node name="Frog" type="StaticBody2D"]
 input_pickable = true
 collision_mask = 2
-script = ExtResource( 1 )
+script = ExtResource( 3 )
+
+[node name="Sprite" type="Sprite" parent="."]
+position = Vector2( 16, -8 )
+rotation = 0.0770574
+texture = ExtResource( 4 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource( 1 )
-
-[node name="Sprite" type="Sprite" parent="."]
-texture = ExtResource( 5 )
 
 [node name="HealthBar" type="TextureProgress" parent="."]
 margin_left = -32.0
@@ -30,8 +30,8 @@ margin_top = 40.0
 margin_right = 40.0
 margin_bottom = 80.0
 value = 100.0
-texture_under = ExtResource( 4 )
-texture_progress = ExtResource( 3 )
+texture_under = ExtResource( 2 )
+texture_progress = ExtResource( 1 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -42,8 +42,8 @@ margin_left = -32.0
 margin_top = 56.0
 margin_right = 8.0
 margin_bottom = 96.0
-texture_under = ExtResource( 4 )
-texture_progress = ExtResource( 3 )
+texture_under = ExtResource( 2 )
+texture_progress = ExtResource( 1 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -51,8 +51,8 @@ __meta__ = {
 [node name="Tween" type="Tween" parent="."]
 
 [node name="SelectorButton" type="TouchScreenButton" parent="."]
-position = Vector2( -36, -36 )
-shape = SubResource( 3 )
+position = Vector2( -54, -54 )
+shape = SubResource( 2 )
 
 [node name="CooldownTimer" type="Timer" parent="."]
 wait_time = 3.0

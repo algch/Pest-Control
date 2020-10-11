@@ -15,7 +15,7 @@ var can_shoot = true
 var shoot_range = 220.0
 var action_thereshold = 10.0
 
-class_name Slingshot
+class_name Frog
 
 enum STATE {
 	IDLE,

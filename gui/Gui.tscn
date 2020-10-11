@@ -1,6 +1,6 @@
 [gd_scene load_steps=8 format=2]
 
-[ext_resource path="res://gui/sprites/slingshot_button.png" type="Texture" id=1]
+[ext_resource path="res://gui/sprites/frog_button.png" type="Texture" id=1]
 [ext_resource path="res://gui/GuiController.gd" type="Script" id=2]
 [ext_resource path="res://gui/sprites/ant.png" type="Texture" id=3]
 [ext_resource path="res://gui/sprites/poison_button.png" type="Texture" id=4]
@@ -43,7 +43,7 @@ margin_right = 404.0
 margin_bottom = 100.0
 texture_normal = ExtResource( 3 )
 
-[node name="SlingshotButton" type="TextureButton" parent="GuiController/HBoxContainer"]
+[node name="FrogButton" type="TextureButton" parent="GuiController/HBoxContainer"]
 margin_left = 408.0
 margin_right = 608.0
 margin_bottom = 100.0
@@ -60,5 +60,5 @@ text = "0"
 [connection signal="button_up" from="GuiController/HBoxContainer/PoisonButton" to="GuiController" method="_clear_state"]
 [connection signal="button_down" from="GuiController/HBoxContainer/AntButton" to="GuiController" method="_on_AntButton_button_down"]
 [connection signal="button_up" from="GuiController/HBoxContainer/AntButton" to="GuiController" method="_clear_state"]
-[connection signal="button_down" from="GuiController/HBoxContainer/SlingshotButton" to="GuiController" method="_on_SlingshotButton_button_down"]
-[connection signal="button_up" from="GuiController/HBoxContainer/SlingshotButton" to="GuiController" method="_clear_state"]
+[connection signal="button_down" from="GuiController/HBoxContainer/FrogButton" to="GuiController" method="_on_FrogButton_button_down"]
+[connection signal="button_up" from="GuiController/HBoxContainer/FrogButton" to="GuiController" method="_clear_state"]

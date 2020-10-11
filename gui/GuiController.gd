@@ -2,7 +2,7 @@ extends Control
 
 
 var poison_sprite = load("res://draggable_items/poison/sprites/poison.png")
-var slingshot_sprite = load("res://draggable_items/slingshot/sprites/slingshot.png")
+var frog_sprite = load("res://draggable_items/frog/sprites/frog.png")
 var ant_sprite = load("res://draggable_items/ant/sprites/ant.png")
 
 var is_dragging = false
@@ -19,10 +19,10 @@ func _on_PoisonButton_button_down():
 	drag_item_name = "poison"
 	Gui.item_dragging_started(poison_sprite, 30)
 
-func _on_SlingshotButton_button_down():
+func _on_FrogButton_button_down():
 	is_dragging = true
-	drag_item_name = "slingshot"
-	Gui.item_dragging_started(slingshot_sprite, 15)
+	drag_item_name = "frog"
+	Gui.item_dragging_started(frog_sprite, 15)
 
 func _on_AntButton_button_down():
 	is_dragging = true

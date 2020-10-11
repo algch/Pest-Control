@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=2]
 
-[ext_resource path="res://draggable_items/slingshot/sprites/projectile.png" type="Texture" id=1]
-[ext_resource path="res://draggable_items/slingshot/Projectile.gd" type="Script" id=2]
+[ext_resource path="res://draggable_items/frog/sprites/projectile.png" type="Texture" id=1]
+[ext_resource path="res://draggable_items/frog/Projectile.gd" type="Script" id=2]
 
 [sub_resource type="CircleShape2D" id=1]
 

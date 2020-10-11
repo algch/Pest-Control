@@ -108,7 +108,8 @@ func do_approach(delta):
 		return
 
 	var dir_angle = self.direction.angle()
-	if dir_angle <= dir_to_objective.angle() - deg2rad(10):
+	var dir_to_objective_angle = dir_to_objective.angle()
+	if dir_angle <= dir_to_objective_angle:
 		self.direction = self.direction.rotated(abs(rotation_delta))
 	else:
 		self.direction = self.direction.rotated(-abs(rotation_delta))

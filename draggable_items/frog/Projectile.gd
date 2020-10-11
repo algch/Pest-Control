@@ -1,7 +1,7 @@
 extends KinematicBody2D
 
 
-var explosion_class = preload("res://draggable_items/slingshot/Explosion.tscn")
+var explosion_class = preload("res://draggable_items/frog/Explosion.tscn")
 
 var direction = Vector2.UP
 var speed = 1500.0
