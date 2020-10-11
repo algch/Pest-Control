@@ -37,7 +37,7 @@ margin_right = 200.0
 margin_bottom = 100.0
 texture_normal = ExtResource( 4 )
 
-[node name="AntButton" type="TextureButton" parent="GuiController/HBoxContainer"]
+[node name="EggButton" type="TextureButton" parent="GuiController/HBoxContainer"]
 margin_left = 204.0
 margin_right = 404.0
 margin_bottom = 100.0
@@ -58,7 +58,7 @@ custom_fonts/font = SubResource( 1 )
 text = "0"
 [connection signal="button_down" from="GuiController/HBoxContainer/PoisonButton" to="GuiController" method="_on_PoisonButton_button_down"]
 [connection signal="button_up" from="GuiController/HBoxContainer/PoisonButton" to="GuiController" method="_clear_state"]
-[connection signal="button_down" from="GuiController/HBoxContainer/AntButton" to="GuiController" method="_on_AntButton_button_down"]
-[connection signal="button_up" from="GuiController/HBoxContainer/AntButton" to="GuiController" method="_clear_state"]
+[connection signal="button_down" from="GuiController/HBoxContainer/EggButton" to="GuiController" method="_on_EggButton_button_down"]
+[connection signal="button_up" from="GuiController/HBoxContainer/EggButton" to="GuiController" method="_clear_state"]
 [connection signal="button_down" from="GuiController/HBoxContainer/FrogButton" to="GuiController" method="_on_FrogButton_button_down"]
 [connection signal="button_up" from="GuiController/HBoxContainer/FrogButton" to="GuiController" method="_clear_state"]

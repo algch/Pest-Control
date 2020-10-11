@@ -3,7 +3,7 @@ extends Control
 
 var poison_sprite = load("res://draggable_items/poison/sprites/poison.png")
 var frog_sprite = load("res://draggable_items/frog/sprites/frog.png")
-var ant_sprite = load("res://draggable_items/ant/sprites/ant.png")
+var egg_sprite = load("res://draggable_items/egg/sprites/egg.png")
 
 var is_dragging = false
 var drag_item_name = ""
@@ -24,10 +24,10 @@ func _on_FrogButton_button_down():
 	drag_item_name = "frog"
 	Gui.item_dragging_started(frog_sprite, 15)
 
-func _on_AntButton_button_down():
+func _on_EggButton_button_down():
 	is_dragging = true
-	drag_item_name = "ant"
-	Gui.item_dragging_started(ant_sprite, 50)
+	drag_item_name = "egg"
+	Gui.item_dragging_started(egg_sprite, 50)
 
 func _clear_state():
 	is_dragging = false

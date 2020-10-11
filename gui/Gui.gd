@@ -13,3 +13,6 @@ func item_dragging_started(texture, cost):
 
 func _on_ItemHandler_money_changed(new_money):
 	$GuiController/HBoxContainer/Label.set_text(str(new_money))
+
+func _on_EggButton_button_down():
+	pass # Replace with function body.

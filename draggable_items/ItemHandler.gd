@@ -6,6 +6,7 @@ signal money_changed(value)
 var frog_class = preload("res://draggable_items/frog/Frog.tscn")
 var poison_class = preload("res://draggable_items/poison/Poison.tscn")
 var ant_class = preload("res://draggable_items/ant/Ant.tscn")
+var egg_class = preload("res://draggable_items/egg/Egg.tscn")
 
 var horizontal_slots = 3
 var vertical_slots = 4
@@ -70,7 +71,16 @@ func instance_item_by_name(item_name):
 			ant.connect("updated_position", self, "_on_item_updated_position")
 			ant.connect("destroyed", self, "_on_item_destroyed")
 			return ant
+		"egg":
+			var egg = egg_class.instance()
+			egg.connect("destroyed", self, "_on_item_destroyed")
+			egg.connect("hatch", self, "_on_Egg_hatched")
+			return egg
 	return null
+
+func _on_Egg_hatched(type, pos):
+	var item = instance_item_by_name(type)
+	spawn_item(item, pos)
 
 func _on_item_destroyed(cell_index):
 	if not cell_index:
