@@ -79,7 +79,7 @@ func _on_kb_timer_timeout():
 		STATE.KNOCKBACK:
 			self.current_state = STATE.STAGGER
 		STATE.STAGGER:
-			self.current_state = STATE.ADVANCE
+			self.current_state = STATE.APPROACH
 
 func _physics_process(delta):
 	match current_state:

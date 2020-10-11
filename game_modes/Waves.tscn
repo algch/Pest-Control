@@ -21,9 +21,6 @@ collision_mask = 0
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="StaticBody2D"]
 polygon = PoolVector2Array( 0, 0, 0, 1176, 720, 1176, 720, 0, 720, -192, 0, -192, 0, -184, 712, -184, 712, 0, 712, 1168, 8, 1168, 8, 0, 8, -184, 0, -184 )
 
-[node name="ItemHandler" parent="." instance=ExtResource( 6 )]
-position = Vector2( 8, 640 )
-
 [node name="Gui" parent="." instance=ExtResource( 1 )]
 
 [node name="Spider2" parent="." instance=ExtResource( 5 )]
@@ -45,7 +42,10 @@ __meta__ = {
 
 [node name="Spawner" parent="." instance=ExtResource( 4 )]
 position = Vector2( 64, -96 )
-[connection signal="money_changed" from="ItemHandler" to="Gui" method="_on_ItemHandler_money_changed"]
+
+[node name="ItemHandler" parent="." instance=ExtResource( 6 )]
+position = Vector2( 8, 640 )
 [connection signal="dragging_started" from="Gui" to="." method="_on_Gui_dragging_started"]
 [connection signal="item_dragged" from="Gui" to="ItemHandler" method="_on_Gui_item_dragged"]
 [connection signal="spawned" from="Spawner" to="." method="_on_Spawner_spawned"]
+[connection signal="money_changed" from="ItemHandler" to="Gui" method="_on_ItemHandler_money_changed"]

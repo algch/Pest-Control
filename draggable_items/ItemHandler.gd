@@ -12,8 +12,8 @@ var horizontal_slots = 3
 var vertical_slots = 4
 onready var h_slot_size = $DraggableArea.position.x / self.horizontal_slots
 onready var v_slot_size = $DraggableArea.position.y / self.vertical_slots
-var money = 100 setget set_money
-var money_increase := 5
+var money = 0 setget set_money
+var money_increase := 1
 
 var cells := []
 
@@ -53,6 +53,9 @@ func _on_Gui_item_dragged(item_name: String, pos: Vector2):
 		return
 
 	var item = instance_item_by_name(item_name)
+	if self.money < item.cost:
+		return
+
 	spawn_item(item, pos)
 
 func instance_item_by_name(item_name):
@@ -83,7 +86,7 @@ func _on_Egg_hatched(type, pos):
 	spawn_item(item, pos)
 
 func _on_item_destroyed(cell_index):
-	if not cell_index:
+	if cell_index == null:
 		return
 
 	var current_cell = cells[cell_index]
@@ -119,8 +122,6 @@ func spawn_item(item, mouse_pos):
 	if not found_cell or not found_cell.is_free:
 		return
 
-	if self.money < item.cost:
-		return
 	self.money -= item.cost
 
 	var item_pos = found_cell.get_center_position() + self.position
