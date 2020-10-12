@@ -8,7 +8,7 @@ var poison_class = preload("res://draggable_items/poison/Poison.tscn")
 var ant_class = preload("res://draggable_items/ant/Ant.tscn")
 var egg_class = preload("res://draggable_items/egg/Egg.tscn")
 
-var horizontal_slots = 3
+var horizontal_slots = 4
 var vertical_slots = 4
 onready var h_slot_size = $DraggableArea.position.x / self.horizontal_slots
 onready var v_slot_size = $DraggableArea.position.y / self.vertical_slots

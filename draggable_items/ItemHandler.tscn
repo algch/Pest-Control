@@ -6,7 +6,7 @@
 script = ExtResource( 1 )
 
 [node name="DraggableArea" type="Position2D" parent="."]
-position = Vector2( 704, 528 )
+position = Vector2( 704, 496 )
 
 [node name="Items" type="Node" parent="."]
 

@@ -63,6 +63,7 @@ func shoot_projectile():
 
 	self.current_state = STATE.IDLE
 	self.can_shoot = false
+	$PunchSound.play()
 	start_cooldown()
 
 func start_cooldown() -> void:
@@ -107,13 +108,11 @@ func _draw():
 	if not _is_aiming_angle_valid(raw_direction) or not self.can_shoot:
 		color = Color(1, 0, 0)
 	var up = Vector2.UP.angle()
-	var offset = deg2rad(45)
+	var offset = deg2rad(90)
 	draw_arc(Vector2(), self.shoot_range, up - offset, up + offset, 50, color, 5)
 	draw_line(Vector2(), raw_direction.normalized() * self.shoot_range, color, 5)
 	draw_circle(reference_pos - self.position, get_global_mouse_position().distance_to(reference_pos), color - Color(0, 0, 0, 0.8))
 
 func _is_aiming_angle_valid(dir : Vector2) -> bool:
 	var aiming_angle = rad2deg(dir.angle_to(Vector2.UP))
-	if not (aiming_angle >= -45 and aiming_angle <= 45):
-		return false
-	return true
+	return abs(aiming_angle) <= 90
