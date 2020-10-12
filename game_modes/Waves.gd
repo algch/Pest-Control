@@ -1,6 +1,9 @@
 extends Node2D
 
 
+func _ready():
+	randomize()
+
 func _on_Gui_dragging_started(texture, cost):
 	$Sprite.set_texture(texture)
 	$Sprite/Label.set_text("-" + str(cost))
