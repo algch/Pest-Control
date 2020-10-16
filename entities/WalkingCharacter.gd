@@ -141,13 +141,6 @@ func do_knockback():
 	var motion = self.kb_dir * self.knockback_speed
 	var _status = move_and_slide(motion)
 
-
-func handle_projectile_collision(projectile, collision):
-	self.kb_dir = projectile.direction.bounce(collision.normal)
-	self.current_state = STATE.KNOCKBACK
-	self.health -= 1
-	projectile.queue_free()
-
 func handle_melee_attack(attacker):
 	if attacker.team == self.team:
 		return

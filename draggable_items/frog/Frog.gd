@@ -46,26 +46,6 @@ func set_health(new_health):
 	health = new_health
 	$HealthBar.value = (self.health / self.max_health) * $HealthBar.max_value
 
-func shoot_projectile():
-	if not self.can_shoot:
-		return
-
-	var raw_direction = reference_pos - get_global_mouse_position()
-	if not raw_direction or not _is_aiming_angle_valid(raw_direction):
-		return
-
-	if raw_direction.length() <= self.action_thereshold:
-		return
-
-	var projectile = projectile_class.instance()
-	projectile.init(position, raw_direction.normalized(), shoot_range)
-	emit_signal("shoot", projectile)
-
-	self.current_state = STATE.IDLE
-	self.can_shoot = false
-	$PunchSound.play()
-	start_cooldown()
-
 func start_cooldown() -> void:
 	$CooldownBar.visible = true
 	$CooldownTimer.start()
@@ -80,12 +60,6 @@ func _on_CooldownTimer_timeout():
 func _on_SelectorButton_pressed():
 	self.current_state = STATE.AIMING
 	emit_signal("selected", get_instance_id())
-
-func _on_SelectorButton_released():
-	# if not self.reference_pos != Vector2():
-	# 	return
-	shoot_projectile()
-	self.current_state = STATE.IDLE
 
 func handle_melee_attack(attacker):
 	if attacker.team == self.team:

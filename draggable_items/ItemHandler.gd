@@ -1,19 +1,21 @@
 extends Node2D
 
 
-signal money_changed(value)
+signal money_changed(value) # should be eggs, not money
 
-var frog_class = preload("res://draggable_items/frog/Frog.tscn")
+var male_frog_class = preload("res://draggable_items/frog/MaleFrog.tscn")
+var female_frog_class = preload("res://draggable_items/frog/FemaleFrog.tscn")
+var egg_class = preload("res://draggable_items/egg/Egg.tscn")
+
 var poison_class = preload("res://draggable_items/poison/Poison.tscn")
 var ant_class = preload("res://draggable_items/ant/Ant.tscn")
-var egg_class = preload("res://draggable_items/egg/Egg.tscn")
 
 var horizontal_slots = 4
 var vertical_slots = 4
 onready var h_slot_size = $DraggableArea.position.x / self.horizontal_slots
 onready var v_slot_size = $DraggableArea.position.y / self.vertical_slots
-var money = 0 setget set_money
-var money_increase := 1
+var money = 0 setget set_money # should be eggs, not money
+var money_increase := 1 # should be eggs, not money
 
 var cells := []
 
@@ -60,11 +62,16 @@ func _on_Gui_item_dragged(item_name: String, pos: Vector2):
 
 func instance_item_by_name(item_name):
 	match item_name:
-		"frog":
-			var frog = frog_class.instance()
-			frog.connect("shoot", self, "on_Frog_shoot")
-			frog.connect("destroyed", self, "_on_item_destroyed")
-			return frog
+		"male":
+			var male_frog = male_frog_class.instance()
+			male_frog.connect("shoot", self, "on_Frog_shoot")
+			male_frog.connect("destroyed", self, "_on_item_destroyed")
+			return male_frog
+		"female":
+			var female_frog = female_frog_class.instance()
+			female_frog.connect("shoot", self, "on_Frog_shoot")
+			female_frog.connect("destroyed", self, "_on_item_destroyed")
+			return female_frog
 		"poison":
 			var poison = poison_class.instance()
 			poison.connect("destroyed", self, "_on_item_destroyed")

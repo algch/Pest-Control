@@ -6,13 +6,15 @@ var explosion_class = preload("res://draggable_items/frog/Explosion.tscn")
 var direction = Vector2.UP
 var speed = 1500.0
 var distance_span
+var damage : float
 
 signal exploded(explosion)
 
-func init(pos: Vector2, dir: Vector2, dist_span: float):
+func init(pos: Vector2, dir: Vector2, dist_span: float, dam : float):
 	self.position = pos
 	self.direction = dir
 	self.distance_span = dist_span
+	self.damage = dam
 
 func _physics_process(delta):
 	var motion = direction * speed * delta

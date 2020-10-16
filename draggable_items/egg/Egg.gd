@@ -15,11 +15,14 @@ class_name Egg
 
 func set_health(new_health):
 	if new_health <= 0:
-		emit_signal("destroyed", current_cell)
-		queue_free()
+		destroy()
 
 	health = new_health
 	$HealthBar.value = (self.health / self.max_health) * $HealthBar.max_value
+
+func destroy():
+	emit_signal("destroyed", current_cell)
+	queue_free()
 
 func _ready():
 	$Tween.interpolate_property($GrowthBar, "value", $GrowthBar.min_value, $GrowthBar.max_value, $GrowthTimer.wait_time)
@@ -43,9 +46,12 @@ func _on_MenuButton_released():
 	$Menu.visible = false
 	var option = get_selected_option()
 	match option:
-		"frog":
-			self.health = 0
-			emit_signal("hatch", "frog", self.position)
+		"male":
+			destroy()
+			emit_signal("hatch", "male", self.position)
+		"female":
+			destroy()
+			emit_signal("hatch", "female", self.position)
 
 func get_selected_option():
 	var mouse_pos = get_local_mouse_position()

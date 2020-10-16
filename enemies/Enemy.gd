@@ -60,3 +60,9 @@ func _on_AttackTimer_timeout():
 
 	$AttackTimer.start()
 	$AnimatedSprite.play("attack")
+
+func handle_projectile_collision(projectile, collision):
+	self.kb_dir = projectile.direction.bounce(collision.normal)
+	self.current_state = STATE.KNOCKBACK
+	self.health -= projectile.damage
+	projectile.queue_free()
