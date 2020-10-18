@@ -1,31 +1,37 @@
 extends "res://entities/WalkingCharacter.gd"
 
-var poisoned_timer = Timer.new()
-var poison_charges = 0
-var poison_damage = 0
+var poison_damage := 0.0
+var poison_time := 0.0
+
+
+class_name Enemy
 
 
 func _ready():
 	initial_direction = Vector2.DOWN
 	team = "ENEMY"
-	add_child(poisoned_timer)
-	poisoned_timer.connect("timeout", self, "_on_poisoned_timer_timeout")
 	._ready()
 
-func _on_poisoned_timer_timeout():
-	if not poison_charges:
-		poisoned_timer.stop()
+func _on_PoisonedTimer_timeout():
+	self.poison_time -= $PoisonedTimer.wait_time
+	if self.poison_time <= 0:
+		self.is_poisoned = false
+		self.speed = self.initial_speed
+		self.rotation_delta = self.initial_rotation_delta
+		$PoisonedTimer.stop()
 		return
 
 	self.health -= self.poison_damage
-	self.poison_charges -= 1
-	poisoned_timer.start()
+	$PoisonedTimer.start()
 
-func handle_poisoned(poisoner):
-	self.poison_charges = poisoner.charges
-	self.poison_damage = poisoner.poison_damage
-	self.poisoned_timer.set_wait_time(poisoner.poison_time)
-	self.poisoned_timer.start()
+# handle multiple ???
+func handle_poisoned(pois_dam, pois_time):
+	self.poison_damage = pois_dam
+	self.poison_time = pois_time
+	$PoisonedTimer.start()
+	self.speed /= 2
+	self.rotation_delta /= 2
+	self.is_poisoned = true
 
 func _on_DetectionArea_body_entered(body):
 	if not body.has_method("handle_melee_attack"):

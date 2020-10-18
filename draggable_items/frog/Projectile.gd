@@ -7,14 +7,18 @@ var direction = Vector2.UP
 var speed = 1500.0
 var distance_span
 var damage : float
+var is_poisonus : bool
+var poison_time : float
 
 signal exploded(explosion)
 
-func init(pos: Vector2, dir: Vector2, dist_span: float, dam : float):
+func init(pos: Vector2, dir: Vector2, dist_span: float, dam : float, pois : bool = false, pois_time : float = 0):
 	self.position = pos
 	self.direction = dir
 	self.distance_span = dist_span
 	self.damage = dam
+	self.is_poisonus = pois
+	self.poison_time = pois_time
 
 func _physics_process(delta):
 	var motion = direction * speed * delta
@@ -22,8 +26,12 @@ func _physics_process(delta):
 
 	if collision:
 		self.direction = self.direction.bounce(collision.normal)
-		if collision.collider.has_method("handle_projectile_collision"):
-			collision.collider.handle_projectile_collision(self, collision)
+		if collision.collider is Enemy:
+			if self.is_poisonus:
+				print("poisoned")
+				collision.collider.handle_poisoned(self.damage, self.poison_time)
+			else:
+				collision.collider.handle_projectile_collision(self, collision)
 
 		destroy()
 

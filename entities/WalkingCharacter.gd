@@ -10,9 +10,11 @@ enum STATE {
 
 const HALF_PI = PI / 2
 
-var rotation_delta = deg2rad(1)
+var initial_rotation_delta = deg2rad(1)
+var rotation_delta = initial_rotation_delta
 var rotation_extents = deg2rad(22.5)
-var speed = 50.0
+var initial_speed = 50.0
+var speed = initial_speed
 var knockback_speed = 600.0
 var knockback_time = 0.2
 var stagger_time = 0.3
@@ -28,6 +30,7 @@ var max_health = null
 var health = null setget set_health
 var melee_damage = null
 var team = null
+var is_poisoned = false
 
 
 func _ready():
@@ -135,6 +138,8 @@ func do_advance(delta):
 	self.direction = self.direction.rotated(self.rotation_delta)
 	self.rotation = self.direction.angle()
 	var motion = direction * speed * delta
+	if self.is_poisoned:
+		motion /= 2
 	var _collision = move_and_collide(motion)
 
 func do_knockback():

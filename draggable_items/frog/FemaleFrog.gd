@@ -3,7 +3,8 @@ extends Frog
 
 # ranged combat
 
-var damage = 0
+var damage = 0.25
+var poison_time = 3.0
 
 func _ready():
     self.shoot_range = 600
@@ -25,7 +26,7 @@ func shoot_projectile():
 		return
 
 	var projectile = projectile_class.instance()
-	projectile.init(self.position, raw_direction.normalized(), self.shoot_range, self.damage)
+	projectile.init(self.position, raw_direction.normalized(), self.shoot_range, self.damage, true, self.poison_time)
 	emit_signal("shoot", projectile)
 
 	self.current_state = STATE.IDLE
