@@ -1,7 +1,7 @@
 extends Node2D
 
 
-signal money_changed(value) # should be eggs, not money
+signal eggs_changed(value)
 
 var male_frog_class = preload("res://draggable_items/frog/MaleFrog.tscn")
 var female_frog_class = preload("res://draggable_items/frog/FemaleFrog.tscn")
@@ -14,8 +14,7 @@ var horizontal_slots = 4
 var vertical_slots = 4
 onready var h_slot_size = $DraggableArea.position.x / self.horizontal_slots
 onready var v_slot_size = $DraggableArea.position.y / self.vertical_slots
-var money = 0 setget set_money # should be eggs, not money
-var money_increase := 1 # should be eggs, not money
+var eggs = 5 setget set_eggs # should be eggs, not eggs
 
 var cells := []
 
@@ -38,12 +37,18 @@ class Cell:
 	func get_center_position():
 		return self.top_left + (self.bottom_right - self.top_left) / 2
 
-func set_money(new_money):
-	money = new_money
-	emit_signal("money_changed", self.money)
+func set_eggs(new_eggs):
+	eggs = new_eggs
+	emit_signal("eggs_changed", self.eggs)
 
-func _on_MoneyTimer_timeout():
-	self.money += money_increase
+func _on_EggTimer_timeout():
+	self.eggs += _get_eggs()
+
+func _get_eggs():
+	var males = len(get_tree().get_nodes_in_group("males"))
+	var females = len(get_tree().get_nodes_in_group("females"))
+
+	return min(males, females)
 
 func _find_cell(pos : Vector2):
 	for cell in cells:
@@ -55,7 +60,7 @@ func _on_Gui_item_dragged(item_name: String, pos: Vector2):
 		return
 
 	var item = instance_item_by_name(item_name)
-	if self.money < item.cost:
+	if self.eggs < item.cost:
 		return
 
 	spawn_item(item, pos)
@@ -129,7 +134,7 @@ func spawn_item(item, mouse_pos):
 	if not found_cell or not found_cell.is_free:
 		return
 
-	self.money -= item.cost
+	self.eggs -= item.cost
 
 	var item_pos = found_cell.get_center_position() + self.position
 	item.position = item_pos
@@ -159,6 +164,8 @@ func _ready():
 			count += 1
 			local_y += self.v_slot_size
 		local_x += self.h_slot_size
+
+	emit_signal("eggs_changed", self.eggs)
 
 func _process(_delta):
 	update()

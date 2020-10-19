@@ -27,7 +27,7 @@ func _on_PoisonedTimer_timeout():
 # handle multiple ???
 func handle_poisoned(pois_dam, pois_time):
 	self.poison_damage = pois_dam
-	self.poison_time = pois_time
+	self.poison_time += pois_time
 	$PoisonedTimer.start()
 	self.speed /= 2
 	self.rotation_delta /= 2

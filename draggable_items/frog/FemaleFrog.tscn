@@ -63,6 +63,10 @@ wait_time = 5.0
 [node name="PunchSound" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 5 )
 volume_db = -10.0
+
+[node name="LifeTimer" type="Timer" parent="."]
+autostart = true
 [connection signal="pressed" from="SelectorButton" to="." method="_on_SelectorButton_pressed"]
 [connection signal="released" from="SelectorButton" to="." method="_on_SelectorButton_released"]
 [connection signal="timeout" from="CooldownTimer" to="." method="_on_CooldownTimer_timeout"]
+[connection signal="timeout" from="LifeTimer" to="." method="_on_LifeTimer_timeout"]

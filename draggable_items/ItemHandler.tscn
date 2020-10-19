@@ -12,7 +12,7 @@ position = Vector2( 704, 496 )
 
 [node name="Projectiles" type="Node" parent="."]
 
-[node name="MoneyTimer" type="Timer" parent="."]
-wait_time = 2.5
+[node name="EggTimer" type="Timer" parent="."]
+wait_time = 10.0
 autostart = true
-[connection signal="timeout" from="MoneyTimer" to="." method="_on_MoneyTimer_timeout"]
+[connection signal="timeout" from="EggTimer" to="." method="_on_EggTimer_timeout"]

@@ -4,7 +4,7 @@ extends StaticBody2D
 signal destroyed(cell_index)
 
 var projectile_class = preload("./Projectile.tscn")
-# listeing for input state may be better, use states instead
+# listening for input state may be better, use states instead
 var reference_pos := Vector2()
 var team = "PLAYER"
 var max_health = 3.0
@@ -14,6 +14,8 @@ var current_cell = null
 var can_shoot = true
 var shoot_range = 220.0
 var action_thereshold = 10.0
+var life_span = 30.0
+onready var health_decrease =  (max_health / life_span) * $LifeTimer.wait_time
 
 class_name Frog
 
@@ -34,9 +36,6 @@ func set_current_state(new_state):
 			self.reference_pos = Vector2()
 		STATE.AIMING:
 			self.reference_pos = get_global_mouse_position()
-			# if self.reference_pos.distance_to(self.global_position) <= $SelectorButton.shape.radius:
-			# 	current_state = STATE.IDLE
-			# 	self.reference_pos = Vector2()
 
 func set_health(new_health):
 	if new_health <= 0:
@@ -56,6 +55,9 @@ func _on_CooldownTimer_timeout():
 	$CooldownTimer.stop()
 	$CooldownBar.visible = false
 	self.can_shoot = true
+
+func _on_LifeTimer_timeout():
+	self.health -= health_decrease
 
 func _on_SelectorButton_pressed():
 	self.current_state = STATE.AIMING

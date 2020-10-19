@@ -11,5 +11,5 @@ func drag_item(item_name, pos):
 func item_dragging_started(texture, cost):
 	emit_signal("dragging_started", texture, cost)
 
-func _on_ItemHandler_money_changed(new_money):
-	$GuiController/HBoxContainer/Label.set_text(str(new_money))
+func _on_ItemHandler_eggs_changed(new_eggs):
+	$GuiController/HBoxContainer/Label.set_text(str(new_eggs))
