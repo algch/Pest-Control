@@ -1,15 +1,13 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://draggable_items/sprites/health_bar_progress.png" type="Texture" id=1]
 [ext_resource path="res://draggable_items/sprites/health_bar_under.png" type="Texture" id=2]
 [ext_resource path="res://draggable_items/frog/Frog.gd" type="Script" id=3]
-[ext_resource path="res://draggable_items/frog/sprites/frog.png" type="Texture" id=4]
-[ext_resource path="res://draggable_items/frog/sounds/Loop.wav" type="AudioStream" id=5]
-
-[sub_resource type="CircleShape2D" id=1]
-radius = 54.0
 
 [sub_resource type="CircleShape2D" id=2]
+radius = 54.0
+
+[sub_resource type="CircleShape2D" id=1]
 radius = 54.0
 
 [node name="Frog" type="StaticBody2D"]
@@ -17,15 +15,8 @@ input_pickable = true
 collision_mask = 2
 script = ExtResource( 3 )
 
-[node name="Sprite" type="Sprite" parent="." groups=[
-"males",
-]]
-position = Vector2( 16, -8 )
-rotation = 0.0770574
-texture = ExtResource( 4 )
-
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource( 1 )
+shape = SubResource( 2 )
 
 [node name="HealthBar" type="TextureProgress" parent="."]
 margin_left = -32.0
@@ -53,18 +44,12 @@ __meta__ = {
 
 [node name="Tween" type="Tween" parent="."]
 
-[node name="SelectorButton" type="TouchScreenButton" parent="." groups=[
-"males",
-]]
+[node name="SelectorButton" type="TouchScreenButton" parent="."]
 position = Vector2( -54, -54 )
-shape = SubResource( 2 )
+shape = SubResource( 1 )
 
 [node name="CooldownTimer" type="Timer" parent="."]
 wait_time = 2.0
-
-[node name="PunchSound" type="AudioStreamPlayer" parent="."]
-stream = ExtResource( 5 )
-volume_db = -10.0
 
 [node name="LifeTimer" type="Timer" parent="."]
 autostart = true

@@ -9,6 +9,11 @@ func _on_SelectorButton_released():
 	shoot_projectile()
 	self.current_state = STATE.IDLE
 
+func _process(_delta):
+	if self.current_state != STATE.AIMING:
+		return
+	$Sprite.rotation = (reference_pos - get_global_mouse_position()).angle()
+
 func shoot_projectile():
 	if not self.can_shoot:
 		return
@@ -26,5 +31,4 @@ func shoot_projectile():
 
 	self.current_state = STATE.IDLE
 	self.can_shoot = false
-	$PunchSound.play()
 	start_cooldown()

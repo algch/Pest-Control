@@ -2,6 +2,7 @@ extends Node2D
 
 
 signal eggs_changed(value)
+signal frogs_changed()
 
 var male_frog_class = preload("res://draggable_items/frog/MaleFrog.tscn")
 var female_frog_class = preload("res://draggable_items/frog/FemaleFrog.tscn")
@@ -98,6 +99,7 @@ func _on_Egg_hatched(type, pos):
 	spawn_item(item, pos)
 
 func _on_item_destroyed(cell_index):
+	emit_signal("frogs_changed")
 	if cell_index == null:
 		return
 
@@ -141,6 +143,7 @@ func spawn_item(item, mouse_pos):
 	item.current_cell = found_cell.index
 	found_cell.is_free = false
 	$Items.add_child(item)
+	emit_signal("frogs_changed")
 
 func on_Frog_shoot(projectile):
 	projectile.connect("exploded", self, "_on_Projectile_exploded")

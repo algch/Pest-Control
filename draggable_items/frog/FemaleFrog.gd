@@ -8,11 +8,15 @@ var poison_time = 3.0
 
 func _ready():
     self.shoot_range = 600
-    $Sprite.modulate = Color(0.5, 0, 0, 0.5)
 
 func _on_SelectorButton_released():
 	shoot_projectile()
 	self.current_state = STATE.IDLE
+
+func _process(_delta):
+	if self.current_state != STATE.AIMING:
+		return
+	$Sprite.rotation = (reference_pos - get_global_mouse_position()).angle()
 
 func shoot_projectile():
 	if not self.can_shoot:
@@ -31,7 +35,6 @@ func shoot_projectile():
 
 	self.current_state = STATE.IDLE
 	self.can_shoot = false
-	$PunchSound.play()
 	start_cooldown()
 
 

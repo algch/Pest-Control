@@ -40,6 +40,7 @@ func _ready():
 	$Timer.set_wait_time(wait_time)
 	$Timer.connect("timeout", self, "_on_Timer_timeout")
 	$Timer.start()
+	$ParticlesTail.emitting = true
 
 func _on_Timer_timeout():
 	destroy()

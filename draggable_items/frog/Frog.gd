@@ -14,7 +14,7 @@ var current_cell = null
 var can_shoot = true
 var shoot_range = 220.0
 var action_thereshold = 10.0
-var life_span = 30.0
+var life_span = 25.0
 onready var health_decrease =  (max_health / life_span) * $LifeTimer.wait_time
 
 class_name Frog
@@ -38,11 +38,12 @@ func set_current_state(new_state):
 			self.reference_pos = get_global_mouse_position()
 
 func set_health(new_health):
-	if new_health <= 0:
-		emit_signal("destroyed", current_cell)
-		queue_free()
-
 	health = new_health
+
+	if health <= 0:
+		queue_free()
+		emit_signal("destroyed", current_cell)
+
 	$HealthBar.value = (self.health / self.max_health) * $HealthBar.max_value
 
 func start_cooldown() -> void:

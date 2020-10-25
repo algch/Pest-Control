@@ -14,23 +14,13 @@ onready var Gui = get_parent()
 func _ready():
 	pass # Replace with function body.
 
-func _on_PoisonButton_button_down():
-	is_dragging = true
-	drag_item_name = "poison"
-	Gui.item_dragging_started(poison_sprite, 30)
-
-func _on_FrogButton_button_down():
-	is_dragging = true
-	drag_item_name = "frog"
-	Gui.item_dragging_started(frog_sprite, 15)
-
 func _on_EggButton_button_down():
 	is_dragging = true
 	drag_item_name = "egg"
-	Gui.item_dragging_started(egg_sprite, 50)
+	Gui.item_dragging_started(egg_sprite)
 
 func _clear_state():
 	is_dragging = false
 	var mouse_pos = get_global_mouse_position()
 	Gui.drag_item(drag_item_name, mouse_pos)
-	Gui.item_dragging_started(null, 0)
+	Gui.item_dragging_started(null)
