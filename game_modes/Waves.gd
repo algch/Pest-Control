@@ -12,3 +12,8 @@ func _process(_delta):
 
 func _on_Spawner_spawned(enemy):
 	$Enemies.add_child(enemy)
+
+func _on_CheckEnemiesTimer_timeout():
+	var enemies = len(get_tree().get_nodes_in_group("enemies"))
+	if not enemies:
+		$Spawner.start_wave($Spawner.current_wave + 1)

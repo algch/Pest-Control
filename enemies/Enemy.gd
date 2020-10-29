@@ -2,6 +2,7 @@ extends "res://entities/WalkingCharacter.gd"
 
 var poison_damage := 0.0
 var poison_time := 0.0
+var wave
 
 
 class_name Enemy
@@ -10,6 +11,7 @@ class_name Enemy
 func _ready():
 	initial_direction = Vector2.DOWN
 	team = "ENEMY"
+	add_to_group("enemies")
 	._ready()
 
 func _on_PoisonedTimer_timeout():

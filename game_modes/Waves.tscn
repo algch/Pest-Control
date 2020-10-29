@@ -32,8 +32,13 @@ position = Vector2( 8, 640 )
 stream = ExtResource( 7 )
 volume_db = -15.364
 autoplay = true
+
+[node name="CheckEnemiesTimer" type="Timer" parent="."]
+wait_time = 5.0
+autostart = true
 [connection signal="dragging_started" from="Gui" to="." method="_on_Gui_dragging_started"]
 [connection signal="item_dragged" from="Gui" to="ItemHandler" method="_on_Gui_item_dragged"]
 [connection signal="spawned" from="Spawner" to="." method="_on_Spawner_spawned"]
 [connection signal="eggs_changed" from="ItemHandler" to="Gui" method="_on_ItemHandler_eggs_changed"]
 [connection signal="frogs_changed" from="ItemHandler" to="Gui" method="_on_ItemHandler_frogs_changed"]
+[connection signal="timeout" from="CheckEnemiesTimer" to="." method="_on_CheckEnemiesTimer_timeout"]

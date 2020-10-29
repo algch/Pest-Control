@@ -13,6 +13,6 @@ position = Vector2( 704, 496 )
 [node name="Projectiles" type="Node" parent="."]
 
 [node name="EggTimer" type="Timer" parent="."]
-wait_time = 10.0
+wait_time = 5.0
 autostart = true
 [connection signal="timeout" from="EggTimer" to="." method="_on_EggTimer_timeout"]
