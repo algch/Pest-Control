@@ -28,7 +28,6 @@ func _physics_process(delta):
 		self.direction = self.direction.bounce(collision.normal)
 		if collision.collider is Enemy:
 			if self.is_poisonus:
-				print("poisoned")
 				collision.collider.handle_poisoned(self.damage, self.poison_time)
 			else:
 				collision.collider.handle_projectile_collision(self, collision)
