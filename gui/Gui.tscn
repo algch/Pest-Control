@@ -10,6 +10,10 @@
 [ext_resource path="res://draggable_items/sprites/health_bar_under.png" type="Texture" id=8]
 [ext_resource path="res://draggable_items/sprites/health_bar_progress.png" type="Texture" id=9]
 
+[sub_resource type="DynamicFont" id=1]
+size = 20
+font_data = ExtResource( 5 )
+
 [sub_resource type="DynamicFont" id=2]
 size = 20
 font_data = ExtResource( 5 )
@@ -19,10 +23,6 @@ size = 20
 font_data = ExtResource( 5 )
 
 [sub_resource type="DynamicFont" id=4]
-size = 20
-font_data = ExtResource( 5 )
-
-[sub_resource type="DynamicFont" id=1]
 size = 28
 font_data = ExtResource( 5 )
 
@@ -59,7 +59,7 @@ margin_left = 144.0
 margin_top = 40.0
 margin_right = 183.0
 margin_bottom = 60.0
-custom_fonts/font = SubResource( 2 )
+custom_fonts/font = SubResource( 1 )
 text = "X0"
 
 [node name="TextureRect" type="TextureRect" parent="GuiController/HBoxContainer"]
@@ -73,7 +73,7 @@ margin_left = 291.0
 margin_top = 40.0
 margin_right = 330.0
 margin_bottom = 60.0
-custom_fonts/font = SubResource( 3 )
+custom_fonts/font = SubResource( 2 )
 text = "X0"
 
 [node name="LabelIncrease" type="Label" parent="GuiController/HBoxContainer"]
@@ -81,7 +81,7 @@ margin_left = 334.0
 margin_top = 40.0
 margin_right = 369.0
 margin_bottom = 60.0
-custom_fonts/font = SubResource( 4 )
+custom_fonts/font = SubResource( 3 )
 text = "=0"
 
 [node name="EggProgress" type="TextureProgress" parent="GuiController/HBoxContainer"]
@@ -106,7 +106,7 @@ margin_left = 653.0
 margin_top = 35.0
 margin_right = 679.0
 margin_bottom = 64.0
-custom_fonts/font = SubResource( 1 )
+custom_fonts/font = SubResource( 4 )
 text = "0"
 
 [node name="Tween" type="Tween" parent="."]

@@ -45,7 +45,7 @@ _global_script_class_icons={
 [application]
 
 config/name="Pest Control"
-run/main_scene="res://game_modes/Waves.tscn"
+run/main_scene="res://gui/MainMenu.tscn"
 config/icon="res://icon.png"
 
 [display]
