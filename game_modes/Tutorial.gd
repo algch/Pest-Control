@@ -56,7 +56,6 @@ func advance_step():
 		return
 
 	self.current_step = steps.pop_front()
-	print(self.current_step)
 	if not self.current_step:
 		return
 
