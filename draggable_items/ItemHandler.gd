@@ -15,7 +15,7 @@ var horizontal_slots = 4
 var vertical_slots = 4
 onready var h_slot_size = $DraggableArea.position.x / self.horizontal_slots
 onready var v_slot_size = $DraggableArea.position.y / self.vertical_slots
-var eggs = 5 setget set_eggs
+export var eggs = 0 setget set_eggs
 
 var cells := []
 

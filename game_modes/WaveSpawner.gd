@@ -1,9 +1,5 @@
-extends Position2D
+extends "res://game_modes/BaseSpawner.gd"
 
-
-signal spawned(enemy)
-
-var spider_class = preload("res://enemies/spider/Spider.tscn")
 
 var wave_enemies = 0
 var current_wave
@@ -16,7 +12,7 @@ func _ready():
 	start_wave(1)
 
 func _on_Timer_timeout():
-	spawn_spider() # or another enemy
+	.spawn_spider()
 	self.wave_enemies -= 1
 	if wave_enemies:
 		start_timer()
@@ -24,15 +20,7 @@ func _on_Timer_timeout():
 func _on_LabelTimer_timeout():
 	$CanvasLayer/Control.visible = false
 
-func spawn_spider():
-	var spider = spider_class.instance()
-	spider.wave = self.current_wave
-	spider.position = self.position.linear_interpolate($End.position, randf())
-	emit_signal("spawned", spider)
-
 func start_wave(wave_number):
-	# display wave message... 
-
 	self.current_wave = wave_number
 	self.wave_enemies = int(2 * pow(1.3, wave_number))
 	self.set_label("Wave " + str(wave_number))
