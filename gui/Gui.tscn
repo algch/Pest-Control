@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=15 format=2]
 
 [ext_resource path="res://gui/sprites/egg.png" type="Texture" id=1]
 [ext_resource path="res://gui/GuiController.gd" type="Script" id=2]
@@ -9,6 +9,7 @@
 [ext_resource path="res://gui/sprites/male_frog.png" type="Texture" id=7]
 [ext_resource path="res://draggable_items/sprites/health_bar_under.png" type="Texture" id=8]
 [ext_resource path="res://draggable_items/sprites/health_bar_progress.png" type="Texture" id=9]
+[ext_resource path="res://gui/theme.tres" type="Theme" id=10]
 
 [sub_resource type="DynamicFont" id=1]
 size = 20
@@ -109,8 +110,32 @@ margin_bottom = 64.0
 custom_fonts/font = SubResource( 4 )
 text = "0"
 
+[node name="VBoxContainer" type="VBoxContainer" parent="GuiController"]
+pause_mode = 2
+visible = false
+margin_left = 144.0
+margin_top = 320.0
+margin_right = 595.0
+margin_bottom = 549.0
+theme = ExtResource( 10 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="GuiController/VBoxContainer"]
+margin_right = 451.0
+margin_bottom = 49.0
+text = "Game Over"
+
+[node name="BackButton" type="Button" parent="GuiController/VBoxContainer"]
+margin_top = 149.0
+margin_right = 451.0
+margin_bottom = 229.0
+text = "Back"
+
 [node name="Tween" type="Tween" parent="."]
 repeat = true
 playback/repeat = true
 [connection signal="button_down" from="GuiController/HBoxContainer/EggButton" to="GuiController" method="_on_EggButton_button_down"]
 [connection signal="button_up" from="GuiController/HBoxContainer/EggButton" to="GuiController" method="_clear_state"]
+[connection signal="pressed" from="GuiController/VBoxContainer/BackButton" to="." method="_on_BackButton_pressed"]

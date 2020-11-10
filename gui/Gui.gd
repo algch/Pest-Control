@@ -20,8 +20,6 @@ func _on_ItemHandler_eggs_changed(new_eggs):
 	$GuiController/HBoxContainer/LabelEggs.set_text(str(new_eggs))
 
 func _on_ItemHandler_frogs_changed():
-	# The handler should tell me how many frogs are there
-
 	var all_males = get_tree().get_nodes_in_group("males")
 	var male_frogs = 0
 	for frog in all_males:
@@ -39,3 +37,11 @@ func _on_ItemHandler_frogs_changed():
 	$GuiController/HBoxContainer/LabelMales.set_text("x" + str(male_frogs))
 	$GuiController/HBoxContainer/LabelFemales.set_text("x" + str(female_frogs))
 	$GuiController/HBoxContainer/LabelIncrease.set_text("=" + str(increase))
+
+func display_game_over():
+	$GuiController/VBoxContainer.set_visible(true)
+
+func _on_BackButton_pressed():
+	var tree = get_tree()
+	tree.set_pause(false)
+	tree.change_scene("res://gui/MainMenu.tscn")

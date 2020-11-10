@@ -14,3 +14,7 @@ func _on_CheckEnemiesTimer_timeout():
 	var enemies = len(get_tree().get_nodes_in_group("enemies"))
 	if not enemies:
 		$WaveSpawner.start_wave($WaveSpawner.current_wave + 1)
+
+func _on_GameOverLine_body_entered(body):
+	$Gui.display_game_over()
+	get_tree().set_pause(true)
