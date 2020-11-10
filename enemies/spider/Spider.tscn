@@ -82,7 +82,6 @@ modulate = Color( 1, 0.333333, 0.333333, 1 )
 rotation = -1.5708
 frames = SubResource( 1 )
 animation = "walk"
-frame = 6
 playing = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -119,6 +118,7 @@ position = Vector2( 72, 0 )
 shape = SubResource( 3 )
 
 [node name="Label" type="Label" parent="."]
+visible = false
 margin_left = -80.0
 margin_top = 72.0
 margin_right = 111.0

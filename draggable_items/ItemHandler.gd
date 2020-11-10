@@ -8,9 +8,6 @@ var male_frog_class = preload("res://draggable_items/frog/MaleFrog.tscn")
 var female_frog_class = preload("res://draggable_items/frog/FemaleFrog.tscn")
 var egg_class = preload("res://draggable_items/egg/Egg.tscn")
 
-var poison_class = preload("res://draggable_items/poison/Poison.tscn")
-var ant_class = preload("res://draggable_items/ant/Ant.tscn")
-
 var horizontal_slots = 4
 var vertical_slots = 4
 onready var h_slot_size = $DraggableArea.position.x / self.horizontal_slots
@@ -78,15 +75,6 @@ func instance_item_by_name(item_name):
 			female_frog.connect("shoot", self, "on_Frog_shoot")
 			female_frog.connect("destroyed", self, "_on_item_destroyed")
 			return female_frog
-		"poison":
-			var poison = poison_class.instance()
-			poison.connect("destroyed", self, "_on_item_destroyed")
-			return poison
-		"ant":
-			var ant = ant_class.instance()
-			ant.connect("updated_position", self, "_on_item_updated_position")
-			ant.connect("destroyed", self, "_on_item_destroyed")
-			return ant
 		"egg":
 			var egg = egg_class.instance()
 			egg.connect("destroyed", self, "_on_item_destroyed")

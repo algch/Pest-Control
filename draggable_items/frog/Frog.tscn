@@ -4,10 +4,10 @@
 [ext_resource path="res://draggable_items/sprites/health_bar_under.png" type="Texture" id=2]
 [ext_resource path="res://draggable_items/frog/Frog.gd" type="Script" id=3]
 
-[sub_resource type="CircleShape2D" id=2]
+[sub_resource type="CircleShape2D" id=1]
 radius = 54.0
 
-[sub_resource type="CircleShape2D" id=1]
+[sub_resource type="CircleShape2D" id=2]
 radius = 54.0
 
 [node name="Frog" type="StaticBody2D"]
@@ -16,7 +16,7 @@ collision_mask = 2
 script = ExtResource( 3 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource( 2 )
+shape = SubResource( 1 )
 
 [node name="HealthBar" type="TextureProgress" parent="."]
 margin_left = -32.0
@@ -46,7 +46,7 @@ __meta__ = {
 
 [node name="SelectorButton" type="TouchScreenButton" parent="."]
 position = Vector2( -54, -54 )
-shape = SubResource( 1 )
+shape = SubResource( 2 )
 
 [node name="CooldownTimer" type="Timer" parent="."]
 wait_time = 2.0

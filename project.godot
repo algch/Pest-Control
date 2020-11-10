@@ -9,11 +9,6 @@
 config_version=4
 
 _global_script_classes=[ {
-"base": "KinematicBody2D",
-"class": "Ant",
-"language": "GDScript",
-"path": "res://draggable_items/ant/Ant.gd"
-}, {
 "base": "StaticBody2D",
 "class": "Egg",
 "language": "GDScript",
@@ -28,18 +23,11 @@ _global_script_classes=[ {
 "class": "Frog",
 "language": "GDScript",
 "path": "res://draggable_items/frog/Frog.gd"
-}, {
-"base": "StaticBody2D",
-"class": "Poison",
-"language": "GDScript",
-"path": "res://draggable_items/poison/Poison.gd"
 } ]
 _global_script_class_icons={
-"Ant": "",
 "Egg": "",
 "Enemy": "",
-"Frog": "",
-"Poison": ""
+"Frog": ""
 }
 
 [application]
