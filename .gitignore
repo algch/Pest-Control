@@ -3,5 +3,5 @@
 **/*.*~
 **/.DS_Store
 build/
-**.cfg
-**.keystore
+*.keystore
+export_presets.cfg
